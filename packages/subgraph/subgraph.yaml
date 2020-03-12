@@ -1,0 +1,50 @@
+specVersion: 0.0.2
+description: RobinHoodCoop
+repository: 'https://github.com/osarrouy/robinhoodcoop'
+schema:
+  file: ./src/schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: RobinHoodCoop
+    network: kovan
+    source:
+      address: '0x2CEe3f3C8b09d8e75137936CfB9Fb8F21F3654df'
+      abi: RobinHoodCoop
+      startBlock: 17213780
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - Member
+      abis:
+        - name: RobinHoodCoop
+          file: ./abis/RobinHoodCoop.json
+      eventHandlers:
+        - event: 'CreatedMember(indexed address,string,string,string)'
+          handler: handleCreatedMember
+        - event: 'UpdatedMember(indexed address,string,string,string)'
+          handler: handleUpdatedMember
+        - event: 'DeletedMember(indexed address)'
+          handler: handleDeletedMember
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: RobinHoodShare
+    network: kovan
+    source:
+      address: '0x5A09A48a3c5648930604F7ea6248470b44d3b45A'
+      abi: RobinHoodShare
+      startBlock: 17213780
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - Member
+      abis:
+        - name: RobinHoodShare
+          file: ./abis/RobinHoodShare.json
+      eventHandlers:
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+      file: ./src/mapping.ts

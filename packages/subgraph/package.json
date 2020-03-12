@@ -1,0 +1,28 @@
+{
+  "name": "@robinhoodcoop/subgraph",
+  "version": "1.0.0",
+  "author": "Olivier Sarrouy <osarrouy@protonmail.com>",
+  "license": "(GPL-3.0-or-later OR AGPL-3.0-or-later)",
+  "homepage": "https://github.com/osarrouy/robinhoodcoop",
+  "scripts": {
+    "contracts:compile": "npx truffle compile",
+    "abis:extract": "npm run contracts:compile && node scripts/extract_abis.js",
+    "mock:deploy": "npx truffle exex scripts/deploy_mock.js",
+    "graph:auth": "npx graph auth https://api.thegraph.com/deploy/ $ACCESS_TOKEN",
+    "graph:build": "npx graph codegen",
+    "graph:create": "npx graph create osarrouy/robinhoodcoop --node https://api.thegraph.com/deploy/",
+    "graph:create:local": "npx graph create osarrouy/robinhoodcoop --node http://127.0.0.1:8020",
+    "graph:deploy": "npx graph deploy osarrouy/robinhoodcoop --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
+    "graph:deploy:local": "npx graph deploy osarrouy/robinhoodcoop --ipfs http://localhost:5001 --node http://127.0.0.1:8020"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.17.1",
+    "@graphprotocol/graph-ts": "^0.17.0",
+    "@openzeppelin/contracts": "^3.0.0-beta.0",
+    "@openzeppelin/upgrades": "^2.7.1",
+    "@robinhoodcoop/contracts": "1.0.0",
+    "js-yaml": "^3.13.1",
+    "truffle": "^5.1.16"
+  }
+}

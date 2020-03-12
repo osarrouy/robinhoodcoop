@@ -1,0 +1,53 @@
+<script>
+  import Notifications from 'svelte-notifications'
+
+  import { onMount } from 'svelte'
+  import { Router, Route } from 'yrv'
+  import HomeAdmin from '/routes/admin/Home.svelte'
+  import { admin } from '/stores/admin/admin'
+
+  let ethereum = null
+  let account = null
+  let network = null
+  let error = ''
+
+  $: {
+    if (!account) {
+      error = 'Please unlock metamask'
+    } else if (network !== '1') {
+      error = 'Select the mainnet network'
+    } else {
+      // shorten = account.slice(0, 6) + '...' + account.slice(-4)
+      error = ''
+    }
+  }
+
+  onMount(async () => {
+    try {
+      if (typeof window.ethereum !== 'undefined') {
+        ethereum = window.ethereum
+        $admin = (await ethereum.enable())[0]
+        network = ethereum.networkVersion
+
+        ethereum.on('accountsChanged', accounts => {
+          account = accounts[0]
+        })
+
+        ethereum.on('networkChanged', chain => {
+          network = chain
+        })
+      } else {
+        error = 'No Metamask instance detected. Please install Metamask.'
+      }
+    } catch (e) {
+      error = e
+    }
+  })
+</script>
+
+<Notifications>
+  <Router>
+    <Route exact path="/">This is home</Route>
+    <Route path="/admin" component={HomeAdmin} />
+  </Router>
+</Notifications>
