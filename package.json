@@ -6,7 +6,7 @@
     "prettier": "^1.19.1"
   },
   "scripts": {
-    "install": "lerna bootstrap",
+    "install": "npx lerna bootstrap",
     "build:frontend": "cd packages/frontend && npm run build"
   }
 }
