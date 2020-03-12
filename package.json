@@ -4,5 +4,9 @@
   "devDependencies": {
     "lerna": "^3.13.2",
     "prettier": "^1.19.1"
+  },
+  "scripts": {
+    "install": "lerna bootstrap",
+    "build:frontend": "cd packages/frontend && npm run build"
   }
 }
