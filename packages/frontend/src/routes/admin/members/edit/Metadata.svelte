@@ -1,7 +1,6 @@
 <script>
   import Animate from '/components/admin/Animate'
   import Button from '/components/Button'
-  import Header from '/components/admin/Header'
   import { isAddress } from '/lib/address'
   import { coop } from '/lib/coop'
   import { getNotificationsContext } from 'svelte-notifications'

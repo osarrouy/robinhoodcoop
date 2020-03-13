@@ -3,7 +3,9 @@
 
   import { onMount } from 'svelte'
   import { Router, Route } from 'yrv'
-  import HomeAdmin from '/routes/admin/Home.svelte'
+  import Admin from '/routes/admin/Home.svelte'
+  import Home from '/routes/Home.svelte'
+
   import { admin } from '/stores/admin/admin'
 
   let ethereum = null
@@ -46,8 +48,11 @@
 </script>
 
 <Notifications>
-  <Router>
-    <Route exact path="/">This is home</Route>
-    <Route path="/admin" component={HomeAdmin} />
+  <Router nofallback>
+    <Route exact path="/" component={Home} />
+  </Router>
+
+  <Router path="/admin">
+    <Route path="/" component={Admin} />
   </Router>
 </Notifications>

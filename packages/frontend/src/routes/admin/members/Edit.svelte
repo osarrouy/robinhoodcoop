@@ -1,11 +1,16 @@
 <script>
   import Animate from '/components/admin/Animate'
   import Button from '/components/Button'
-  import Header from '/components/admin/Header'
   import { isAddress } from '/lib/address'
   import { coop } from '/lib/coop'
   import { getNotificationsContext } from 'svelte-notifications'
   import { Link } from 'yrv'
+
+  import Main from '/sections/admin/Main'
+
+  import Title from '/components/admin/Title'
+  import Nav from '/components/admin/Nav'
+  import Content from '/components/admin/Content'
 
   import Metadata from '/routes/admin/members/edit/Metadata'
   import Shares from '/routes/admin/members/edit/Shares'
@@ -43,24 +48,34 @@
       }
     }
   }
+
+  .data {
+    grid-area: data;
+  }
 </style>
 
-<Animate>
-  <Header>
-    <Link href="/admin/members" class="x-small">« go back</Link>
-    <h1>{shorten}</h1>
-  </Header>
-
-  <ul class="tabs">
-    <li class={tab === 0 ? 'active' : ''} on:click={() => (tab = 0)}>metadata</li>
-    <li class={tab === 1 ? 'active' : ''} on:click={() => (tab = 1)}>shares</li>
-    <li class={tab === 2 ? 'active' : ''} on:click={() => (tab = 2)}>delete</li>
-  </ul>
-  {#if tab === 0}
-    <Metadata member={address} />
-  {:else if tab === 1}
-    <Shares member={address} />
-  {:else if tab === 2}
-    <Delete member={address} />
-  {/if}
-</Animate>
+<Main>
+  <Title>
+    <h1>edit</h1>
+    <h2 class="small">{address}</h2>
+  </Title>
+  <Nav>
+    <Link href="/admin/members/search" class="x-small">« go back</Link>
+  </Nav>
+  <Content>
+    <div class="data">
+      <ul class="tabs">
+        <li class={tab === 0 ? 'active' : ''} on:click={() => (tab = 0)}>metadata</li>
+        <li class={tab === 1 ? 'active' : ''} on:click={() => (tab = 1)}>shares</li>
+        <li class={tab === 2 ? 'active' : ''} on:click={() => (tab = 2)}>delete</li>
+      </ul>
+      {#if tab === 0}
+        <Metadata member={address} />
+      {:else if tab === 1}
+        <Shares member={address} />
+      {:else if tab === 2}
+        <Delete member={address} />
+      {/if}
+    </div>
+  </Content>
+</Main>

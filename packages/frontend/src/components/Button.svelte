@@ -1,29 +1,33 @@
 <script>
   import Spinner from './Spinner.svelte'
+  import { createEventDispatcher } from 'svelte'
 
   export let _class = ''
   export let type = ''
   export let disabled = false
-  export let click
+  export { _class as class }
 
-  const handleClick = () => {
+  const dispatch = createEventDispatcher()
+
+  const handleClick = event => {
     if (!disabled) {
-      click()
+      dispatch('click', event.detail)
     }
   }
 </script>
 
 <style type="text/scss">
   .button {
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 1px #fff;
+    color: rgba(255, 255, 255, 0.8);
 
     border-radius: 4px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1.1em 5em;
+    padding: 1.1rem 4rem;
     position: relative;
     transition: all 0.2s ease-in-out;
     width: fit-content;

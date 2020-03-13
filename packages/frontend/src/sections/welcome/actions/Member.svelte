@@ -1,6 +1,6 @@
 <script>
-  import Animate from '../../components/Animate.svelte'
-  import { member } from '../../stores/member.js';
+  import Animate from '/components/Animate.svelte'
+  import { member } from '/stores/member.js'
 </script>
 
 <Animate>

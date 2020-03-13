@@ -1,11 +1,17 @@
 <script>
   import Animate from '/components/admin/Animate'
   import Button from '/components/Button'
-  import Header from '/components/admin/Header'
+  // import Header from '/components/admin/Header'
   import { isAddress } from '/lib/address'
   import { coop } from '/lib/coop'
   import { getNotificationsContext } from 'svelte-notifications'
   import { Link, navigateTo } from 'yrv'
+
+  import Main from '/sections/admin/Main'
+
+  import Title from '/components/admin/Title'
+  import Nav from '/components/admin/Nav'
+  import Content from '/components/admin/Content'
 
   const { addNotification, clearNotifications } = getNotificationsContext()
 
@@ -101,12 +107,15 @@
   }
 </script>
 
-<Animate>
-  <Header>
-    <Link href="/admin/members" class="x-small">« go back</Link>
-    <h1>New member</h1>
-  </Header>
-  <section class="form">
+<Main>
+  <Title>
+    <h1>Add a member</h1>
+  </Title>
+  <Nav>
+    <Link href="/admin/members/search" class="x-small">« go back</Link>
+  </Nav>
+  <Content class="form">
+    <!-- <section class="form"> -->
     <div class="entry">
       <label for="address">Ethereum address</label>
       <input id="address" bind:value={address} placeholder="0x1df62f291b2e969fb0849d99d9ce41e2f137006e" />
@@ -127,6 +136,7 @@
       <input id="email" bind:value={email} type="email" placeholder="member@email.com" />
       <p class="info x-small">{errors.email}</p>
     </div>
-    <Button _class="space-top" disabled={loading} click={create}>create</Button>
-  </section>
-</Animate>
+    <Button class="space-top" disabled={loading} on:click={create}>create</Button>
+    <!-- </section> -->
+  </Content>
+</Main>

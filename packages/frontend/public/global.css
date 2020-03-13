@@ -180,28 +180,28 @@ a:hover {
   color: rgba(255, 255, 255, 1);
 }
 
-table {
+table.list {
   border-collapse: collapse;
   text-align: left;
   width: 100%;
 }
 
-th {
+table.list th {
   color: #fff;
   font-size: 0.8rem;
   text-transform: uppercase;
   padding: 1rem;
 }
 
-tr:nth-child(odd) {
+table.list tr:nth-child(odd) {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
-td {
+table.list td {
   padding: 1rem;
 }
 
-td:last-of-type {
+table.list td:last-of-type {
   display: flex;
   justify-content: flex-end;
 }
@@ -261,6 +261,7 @@ td:last-of-type {
 .form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .form .entry {
