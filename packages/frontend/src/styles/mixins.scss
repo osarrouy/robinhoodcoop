@@ -2,3 +2,13 @@
   color: #fff;
   font-weight: 700;
 }
+
+@mixin title {
+  color: rgba(255, 255, 255, 1);
+  font-family: 'Monoton';
+  font-size: 4rem;
+  font-weight: 100;
+  line-height: 1em;
+  text-shadow: 0 0 7px #fff;
+  text-transform: uppercase;
+}

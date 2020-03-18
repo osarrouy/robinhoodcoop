@@ -1,5 +1,7 @@
 <script>
   import Home from '/routes/Home.svelte'
+  import NotFound from '/routes/NotFound.svelte'
+  import AdminError from '/routes/admin/Error.svelte'
   import { MembersCreate, MembersEdit, MembersList } from '/routes/admin/members/index.js'
   import { Shares } from '/routes/admin/shares/index.js'
   import { Burger, Nav } from '/sections/admin/index.js'
@@ -9,41 +11,43 @@
   import { Router, Route } from 'yrv'
   import { admin } from '/stores/admin/admin'
 
-  let ethereum = null
-  let account = null
+  let metamask = false
   let network = null
-  let error = ''
+  let account = null
+  let isAdmin = false
+  let coop = RHC.new()
 
   $: {
-    if (!account) {
-      error = 'Please unlock metamask'
-    } else if (network !== '1') {
-      error = 'Select the mainnet network'
+    if (!metamask || network !== '42') {
+      isAdmin = false
     } else {
-      // shorten = account.slice(0, 6) + '...' + account.slice(-4)
-      error = ''
+      coop.isAdmin(account).then(_isAdmin => {
+        isAdmin = _isAdmin
+      })
     }
   }
 
   onMount(async () => {
     try {
       if (typeof window.ethereum !== 'undefined') {
-        ethereum = window.ethereum
-        $admin = (await ethereum.enable())[0]
-        network = ethereum.networkVersion
+        account = (await window.ethereum.enable())[0]
+        network = window.ethereum.networkVersion
+        metamask = true
+        console.log(account)
 
-        ethereum.on('accountsChanged', accounts => {
+        window.ethereum.on('accountsChanged', accounts => {
           account = accounts[0]
+          console.log(account)
         })
 
-        ethereum.on('networkChanged', chain => {
+        window.ethereum.on('networkChanged', chain => {
           network = chain
         })
-      } else {
-        error = 'No Metamask instance detected. Please install Metamask.'
       }
-    } catch (e) {
-      error = e
+    } catch (e) {}
+
+    if (isAdmin) {
+      navigateTo('/admin/members')
     }
   })
 </script>
@@ -53,29 +57,35 @@
 </style>
 
 <Notifications>
-  <Router nofallback>
+  <Router let:router>
     <Route exact component={Home} />
-    <Route exact path="/admin" redirect="/admin/members" />
-    <Route exact path="/admin/members">
-      <Nav />
-      <Burger />
-      <MembersList />
-    </Route>
-    <Route exact path="/admin/members/create">
-      <Nav />
-      <Burger />
-      <MembersCreate />
-    </Route>
-    <Route exact path="/admin/members/edit/:address">
-      <Nav />
-      <Burger />
-      <MembersEdit />
-    </Route>
-    <Route exact path="/admin/shares">
-      <Nav />
-      <Burger />
-      <Shares />
-    </Route>
-    <Route fallback component={Home} />
+    {#if isAdmin}
+      <Route exact path="/admin" redirect="/admin/members" />
+      <Route exact path="/admin/members">
+        <Nav />
+        <Burger />
+        <MembersList />
+      </Route>
+      <Route exact path="/admin/members/create">
+        <Nav />
+        <Burger />
+        <MembersCreate />
+      </Route>
+      <Route exact path="/admin/members/edit/:address">
+        <Nav />
+        <Burger />
+        <MembersEdit />
+      </Route>
+      <Route exact path="/admin/shares">
+        <Nav />
+        <Burger />
+        <Shares />
+      </Route>
+    {:else}
+      <Route exact path="/admin">
+        <AdminError {metamask} {network} {isAdmin} />
+      </Route>
+    {/if}
+    <Route fallback component={NotFound} />
   </Router>
 </Notifications>
