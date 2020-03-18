@@ -1,17 +1,13 @@
 <script>
-  import Animate from '/components/admin/Animate'
-  import Button from '/components/Button'
+  import { Animate, Button } from '/components/index.js'
   // import Header from '/components/admin/Header'
-  import { isAddress } from '/lib/address'
+  import { isAddress } from '/lib/index.js'
   import { coop } from '/lib/coop'
+
+  import { Content, Links, Main, Title } from '/sections/admin/index.js'
+
   import { getNotificationsContext } from 'svelte-notifications'
   import { Link, navigateTo } from 'yrv'
-
-  import Main from '/sections/admin/Main'
-
-  import Title from '/components/admin/Title'
-  import Nav from '/components/admin/Nav'
-  import Content from '/components/admin/Content'
 
   const { addNotification, clearNotifications } = getNotificationsContext()
 
@@ -111,9 +107,9 @@
   <Title>
     <h1>Add a member</h1>
   </Title>
-  <Nav>
-    <Link href="/admin/members/search" class="x-small">« go back</Link>
-  </Nav>
+  <Links>
+    <Link href="/admin/members" class="x-small">« go back</Link>
+  </Links>
   <Content class="form">
     <!-- <section class="form"> -->
     <div class="entry">

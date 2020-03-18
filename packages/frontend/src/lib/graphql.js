@@ -4,7 +4,7 @@ import { WebSocketLink } from 'apollo-link-ws'
 
 export const ALL_MEMBERS = gql`
   subscription {
-    members(first: 100, orderDirection: asc) {
+    members(orderDirection: asc) {
       address
       shares
       firstname
@@ -13,6 +13,27 @@ export const ALL_MEMBERS = gql`
     }
   }
 `
+
+export const MEMBERS = gql`
+  subscription {
+    members(orderDirection: asc) {
+      id
+    }
+  }
+`
+
+export const MEMBER = gql`
+  subscription member($id: String) {
+    member(id: $id) {
+      address
+      shares
+      firstname
+      lastname
+      email
+    }
+  }
+`
+
 export const GRAPH_ENDPOINT = 'wss://api.thegraph.com/subgraphs/name/osarrouy/robinhoodcoop'
 
 const link = new WebSocketLink({

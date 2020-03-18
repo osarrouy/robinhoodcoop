@@ -47,12 +47,16 @@
   })
 </script>
 
+<style lang="scss" global>
+  @import 'src/styles/global.scss';
+</style>
+
 <Notifications>
   <Router nofallback>
     <Route exact path="/" component={Home} />
   </Router>
 
   <Router path="/admin">
-    <Route path="/" component={Admin} />
+    <Route component={Admin} />
   </Router>
 </Notifications>

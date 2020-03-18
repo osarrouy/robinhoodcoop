@@ -21,6 +21,7 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 0 1px #fff;
     color: rgba(255, 255, 255, 0.8);
+    text-align: center;
 
     border-radius: 4px;
     cursor: pointer;

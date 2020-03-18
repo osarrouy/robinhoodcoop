@@ -1,11 +1,7 @@
 <script>
-  import { fade, slide, scale, blur } from "svelte/transition";
-  import { quintOut } from "svelte/easing";
+  import { fly } from 'svelte/transition'
 </script>
 
-<div
-  class="animate"
-  in:slide={{ delay: 400, duration: 350, easing: quintOut }}
-  out:fade={{ duration: 350, easing: quintOut }}>
+<div in:fly={{ y: 200, delay: 500, duration: 250 }} out:fly={{ y: 200, duration: 500 }}>
   <slot />
 </div>

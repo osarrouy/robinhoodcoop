@@ -1,69 +1,64 @@
 <script>
-  import Animate from '/components/admin/Animate'
-  import Button from '/components/Button'
-  import { coop } from '/lib/coop'
-  import { getNotificationsContext } from 'svelte-notifications'
-  import { navigateTo } from 'yrv'
-  const { addNotification, clearNotifications } = getNotificationsContext()
+  import { Button } from '/components/index.js'
+  import { notify, toFixed, RHC } from '/lib/index.js'
 
   export let member
-  let loading = false
-  let amount = 0
-  let balance = '_'
 
-  const _delete = async () => {
+  let amount = 0
+  let coop = RHC.new()
+  let loading = false
+
+  const burn = async () => {
     loading = true
 
-    try {
-      const tx = await coop.deleteMember(member)
-
-      addNotification({
-        position: 'bottom-center',
-        text: 'Member being deleted through tx ' + tx.hash,
-      })
-
-      await tx.wait()
-
-      addNotification({
-        position: 'bottom-center',
-        type: 'success',
-        text: 'Member deleted! You will be redirected soon ...',
-      })
-
-      setTimeout(() => {
-        clearNotifications()
-        navigateTo('/admin/members')
-      }, 7000)
-    } catch (e) {
-      loading = false
-
-      addNotification({
-        position: 'bottom-center',
-        type: 'danger',
-        text: e.message,
-      })
+    if (amount > 0) {
+      try {
+        const tx = await coop.burn(member.address, toFixed(amount))
+        notify.default('Shares being burnt through tx ' + tx.hash)
+        await tx.wait()
+        notify.success('Shares burnt')
+      } catch (e) {
+        notify.error(e.message)
+      }
     }
+
+    loading = false
+  }
+
+  const mint = async () => {
+    loading = true
+
+    if (amount > 0) {
+      try {
+        const tx = await coop.mint(member.address, toFixed(amount))
+        notify.default('Shares being minted through tx ' + tx.hash)
+        await tx.wait()
+        notify.success('Shares minted')
+      } catch (e) {
+        notify.error(e.message)
+      }
+    }
+
+    loading = false
   }
 </script>
 
-<Animate>
-  <div class="flex column centered">
-    <p class="space-bottom">
-      current member balance:
-      <span class="strong">{balance} RHS</span>
-    </p>
-    <div class="flex centered space-top">
-      <input class="space-right " id="address" bind:value={amount} placeholder="0" />
-      <Button _class="space-right" disabled={loading} click={_delete}>mint</Button>
-      <span class="space-right info x-small">or</span>
-      <Button _class="space-right" disabled={loading} click={_delete}>burn</Button>
-    </div>
-    <p class="info x-small space-top">
-      WARNING. This amount will be minted or burnt and therefore
-      <span class="strong">added</span>
-      or
-      <span class="strong">substracted</span>
-      to the current member's balance.
-    </p>
+<div class="flex column centered">
+  <p class="space-bottom">
+    current member balance:
+    <span class="strong">{member.shares} RHS</span>
+  </p>
+  <div class="flex centered space-top">
+    <input class="space-right " id="amount" bind:value={amount} placeholder="0" />
+    <Button class="space-right" disabled={loading} on:click={mint}>mint</Button>
+    <span class="space-right info x-small">or</span>
+    <Button disabled={loading} on:click={burn}>burn</Button>
   </div>
-</Animate>
+  <p class="info x-small space-top">
+    WARNING. This amount will be minted or burnt and therefore
+    <span class="strong">added</span>
+    or
+    <span class="strong">substracted</span>
+    to the current member's balance.
+  </p>
+</div>

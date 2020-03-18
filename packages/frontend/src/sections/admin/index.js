@@ -1,0 +1,6 @@
+export { default as Burger } from './Burger.svelte'
+export { default as Main } from './Main.svelte'
+export { default as Nav } from './Nav.svelte'
+export { default as Content } from './sub/Content.svelte'
+export { default as Links } from './sub/Links.svelte'
+export { default as Title } from './sub/Title.svelte'

@@ -5,6 +5,7 @@ import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
 import rootImport from 'rollup-plugin-root-import'
 import { scss } from 'svelte-preprocess'
+import auto from 'svelte-preprocess'
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -23,7 +24,7 @@ export default {
       useInput: 'prepend',
 
       // If we don't find the file verbatim, try adding these extensions
-      extensions: ['.js', '.svelte'],
+      extensions: ['.js', '.svelte', '.scss'],
     }),
     svelte({
       // enable run-time checks when not in production
@@ -31,10 +32,18 @@ export default {
       // we'll extract any component CSS out into
       // a separate file - better for performance
       // preprocess: autoPreprocess(),
-      preprocess: [
+      preprocess:
         //   // sass({ name: 'scss'}),
-        scss(),
-      ],
+        // scss(),
+        auto({
+          scss: {
+            includePaths: ['src/styles'],
+            data: `@import 'src/styles/variables.scss';@import 'src/styles/mixins.scss';`,
+          },
+          postcss: {
+            plugins: [require('autoprefixer')],
+          },
+        }),
       // preprocess: {
       //   style: scss(),
       // },

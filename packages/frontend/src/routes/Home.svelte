@@ -1,14 +1,31 @@
 <script>
-  import Layout from '/layouts/Welcome'
-  import Action from '/sections/welcome/Action'
-  import Data from '/sections/welcome/Data'
-  import Nav from '/sections/welcome/Nav'
-  import Title from '/sections/welcome/Title'
+  import { Action, Data, Nav, Title } from '/sections/home/index.js'
 </script>
 
-<Layout>
-  <Title />
-  <Data />
-  <Nav />
-  <Action />
-</Layout>
+<style type="text/scss">
+  div.wrapper {
+    min-height: 100vh;
+    padding: $spacing;
+
+    main {
+      display: grid;
+      grid-template-rows: calc(50% - #{$half-spacing}) calc(50% - #{$half-spacing});
+      grid-template-columns: 45% 45%;
+      grid-template-areas:
+        'title nav'
+        'data action';
+      grid-column-gap: 10%;
+      grid-row-gap: $spacing;
+      min-height: calc(100vh - #{2 * $spacing});
+    }
+  }
+</style>
+
+<div class="wrapper">
+  <main>
+    <Title />
+    <Data />
+    <Nav />
+    <Action />
+  </main>
+</div>

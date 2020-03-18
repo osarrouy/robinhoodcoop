@@ -1,59 +1,33 @@
 <script>
-  import Animate from '/components/admin/Animate'
-  import Button from '/components/Button'
-  import { isAddress } from '/lib/address'
-  import { coop } from '/lib/coop'
-  import { getNotificationsContext } from 'svelte-notifications'
-  import { Link } from 'yrv'
-  const { addNotification } = getNotificationsContext()
+  import { Button, Form, Input } from '/components/index'
+  import { notify, isAddress, isValidEmail, isValidString, RHC } from '/lib/index'
 
   export let member
-  let address
-  export let firstname
-  export let lastname
-  export let email
-  export let shares
 
-  if (isAddress(member)) {
-    coop.isMember(member).then(is => {
-      if (!is) {
-        unknown = true
-      } else {
-        coop.member(member).then(_member => {
-          address = member
-          firstname = _member.firstname
-          lastname = _member.lastname
-          email = _member.email
-        })
-      }
-    })
-  } else {
-    unknown = true
-  }
-
-  let loading
-  let errors = { address: '', firstname: '', lastname: '', email: '' }
+  let coop = RHC.new()
+  let errors = { firstname: '', lastname: '', email: '' }
+  let loading = false
 
   const validateFirstname = () => {
-    if (!firstname || firstname.length === 0) {
-      errors.firstname = 'invalid firstname'
-      return false
+    if (isValidString(member.firstname)) {
+      errors.firstname = ''
+      return true
     }
-    errors.firstname = ''
-    return true
+    errors.firstname = 'invalid firstname'
+    return false
   }
 
   const validateLastname = () => {
-    if (!lastname || lastname.length === 0) {
-      errors.lastname = 'invalid lastname'
-      return false
+    if (isValidString(member.lastname)) {
+      errors.lastname = ''
+      return true
     }
-    errors.lastname = ''
-    return true
+    errors.lastname = 'invalid lastname'
+    return false
   }
 
   const validateEmail = () => {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    if (isValidEmail(member.email)) {
       errors.email = ''
       return true
     }
@@ -74,26 +48,12 @@
 
     if (validate()) {
       try {
-        const tx = await coop.updateMember(address, firstname, lastname, email)
-
-        addNotification({
-          position: 'bottom-center',
-          text: 'Member being updated through tx ' + tx.hash,
-        })
-
+        const tx = await coop.updateMember(member.address, member.firstname, member.lastname, member.email)
+        notify.default('Member being updated through tx ' + tx.hash)
         await tx.wait()
-
-        addNotification({
-          position: 'bottom-center',
-          type: 'success',
-          text: 'Member updated!',
-        })
+        notify.success('Member updated')
       } catch (e) {
-        addNotification({
-          position: 'bottom-center',
-          type: 'danger',
-          text: e.message,
-        })
+        notify.error(e.message)
       }
     }
 
@@ -101,23 +61,9 @@
   }
 </script>
 
-<Animate>
-  <section class="form">
-    <div class="entry">
-      <label for="firstname">firstname</label>
-      <input id="firstname" bind:value={firstname} placeholder="firstname" />
-      <p class="info x-small">{errors.firstname}</p>
-    </div>
-    <div class="entry">
-      <label for="lastname">lastname</label>
-      <input id="lastname" bind:value={lastname} placeholder="firstname" />
-      <p class="info x-small">{errors.lastname}</p>
-    </div>
-    <div class="entry">
-      <label for="email">email</label>
-      <input id="email" bind:value={email} type="email" placeholder="member@email.com" />
-      <p class="info x-small">{errors.email}</p>
-    </div>
-    <Button _class="space-top" disabled={loading} click={update}>update</Button>
-  </section>
-</Animate>
+<Form>
+  <Input class="space-bottom" id="firstname" placeholder="firstname" message={errors.firstname} bind:value={member.firstname} />
+  <Input class="space-bottom" id="lastname" placeholder="lastname" message={errors.lastname} bind:value={member.lastname} />
+  <Input class="space-bottom" id="email" placeholder="email" message={errors.email} bind:value={member.email} />
+  <Button disabled={loading} on:click={update}>update</Button>
+</Form>
