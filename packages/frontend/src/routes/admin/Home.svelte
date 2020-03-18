@@ -69,7 +69,9 @@
 </style>
 
 <div class="wrapper">
-  <Router condition={() => isAdmin}>
+
+  <Router disabled={!isAdmin}>
+    <Route fallback>Toto</Route>
     <Nav />
     <Burger />
     <Router path="/members">
@@ -82,17 +84,18 @@
       <Route exact component={Shares} />
       <Route fallback component={Shares} />
     </Router>
-    <Route>
-      <Animate>
-        <div class="dispatch">
-          <Button on:click={() => navigateTo('/admin/members')} class="space-right">browse members</Button>
-          <Button on:click={() => navigateTo('/admin/admins')} class="space-right">browse admins</Button>
-          <Button on:click={() => navigateTo('/admin/shares')}>edit shares</Button>
-        </div>
-      </Animate>
-    </Route>
+    <!-- <Router>
+        <Animate>
+          <div class="dispatch">
+            <Button on:click={() => navigateTo('/admin/members')} class="space-right">browse members</Button>
+            <Button on:click={() => navigateTo('/admin/admins')} class="space-right">browse admins</Button>
+            <Button on:click={() => navigateTo('/admin/shares')}>edit shares</Button>
+          </div>
+        </Animate>
+      </Route>
+    </Router> -->
   </Router>
-  <Router condition={() => !isAdmin}>
+  <Router disabled={isAdmin}>
     <section class="error">
       {#if !metamask}
         <img src="/img/metamask.png" alt="Metamask" />

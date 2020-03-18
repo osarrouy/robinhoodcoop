@@ -1,5 +1,5 @@
 <script>
-  import { Content, Links, Main, Title } from '/sections/admin/index.js'
+  import { Content, Main, Title } from '/sections/admin/index.js'
   import { Button, Loading } from '/components/index.js'
 
   import { graphql, ALL_MEMBERS } from '/lib/graphql'
@@ -113,9 +113,6 @@
   <Title>
     <h1>Members</h1>
   </Title>
-  <Links>
-    <Link class="x-small">« go back</Link>
-  </Links>
   <Content>
     <div class="grid">
       <div class="top">

@@ -59,7 +59,7 @@
   </p>
   <ul>
     <li>
-      <Link href="/admin/members/search">members</Link>
+      <Link href="/admin/members">members</Link>
     </li>
     <li>
       <Link href="/admin/admins">admins</Link>

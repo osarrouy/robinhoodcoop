@@ -34,4 +34,9 @@ export const notify = {
       text: message,
     })
   },
+
+  clear: () => {
+    const { clearNotifications } = getNotificationsContext()
+    clearNotifications()
+  },
 }

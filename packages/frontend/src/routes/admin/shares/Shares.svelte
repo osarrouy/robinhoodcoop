@@ -1,9 +1,8 @@
 <script>
-  import { Content, Links, Main, Title } from '/sections/admin/index.js'
+  import { Content, Main, Title } from '/sections/admin/index.js'
   import Button from '/components/Button'
   import { notify, toFormattedDecimals, toFixed, RHC } from '/lib/index.js'
   import { onMount } from 'svelte'
-  import { Link } from 'yrv'
 
   let coop = RHC.new()
   let supply = '...'
@@ -59,9 +58,6 @@
   <Title>
     <h1>Shares</h1>
   </Title>
-  <Links>
-    <Link href="/admin/members" class="x-small">« go back</Link>
-  </Links>
   <Content class="shares">
     <table>
       <tr>

@@ -219,6 +219,12 @@ table.list td:last-of-type {
   justify-content: center;
 }
 
+.flex {
+  &.justify-center {
+    justify-content: center;
+  }
+}
+
 .info {
   color: #ffaaaa;
   min-height: 2em;

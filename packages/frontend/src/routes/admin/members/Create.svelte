@@ -1,53 +1,43 @@
 <script>
-  import { Animate, Button } from '/components/index.js'
-  // import Header from '/components/admin/Header'
-  import { isAddress } from '/lib/index.js'
-  import { coop } from '/lib/coop'
-
+  import { Button, Form, Input } from '/components/index.js'
+  import { notify, isAddress, isValidEmail, isValidString, RHC } from '/lib/index'
   import { Content, Links, Main, Title } from '/sections/admin/index.js'
-
-  import { getNotificationsContext } from 'svelte-notifications'
   import { Link, navigateTo } from 'yrv'
 
-  const { addNotification, clearNotifications } = getNotificationsContext()
-
-  let address
-  let firstname
-  let lastname
-  let email
-  let shares
-  let loading
+  let coop = RHC.new()
+  let loading = false
+  let member = { address: '', firstname: '', lastname: '', email: '' }
   let errors = { address: '', firstname: '', lastname: '', email: '' }
 
   const validateAddress = () => {
-    if (!isAddress(address)) {
-      errors.address = 'invalid ethereum address'
-      return false
+    if (isAddress(member.address)) {
+      errors.address = ''
+      return true
     }
-    errors.address = ''
-    return true
+    errors.address = 'invalid ethereum address'
+    return false
   }
 
   const validateFirstname = () => {
-    if (!firstname || firstname.length === 0) {
-      errors.firstname = 'invalid firstname'
-      return false
+    if (isValidString(member.firstname)) {
+      errors.firstname = ''
+      return true
     }
-    errors.firstname = ''
-    return true
+    errors.firstname = 'invalid firstname'
+    return false
   }
 
   const validateLastname = () => {
-    if (!lastname || lastname.length === 0) {
-      errors.lastname = 'invalid lastname'
-      return false
+    if (isValidString(member.lastname)) {
+      errors.lastname = ''
+      return true
     }
-    errors.lastname = ''
-    return true
+    errors.lastname = 'invalid lastname'
+    return false
   }
 
   const validateEmail = () => {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    if (isValidEmail(member.email)) {
       errors.email = ''
       return true
     }
@@ -64,75 +54,43 @@
     return a && f && l && e
   }
 
-  const create = async () => {
+  const add = async () => {
     loading = true
 
     if (validate()) {
       try {
-        const tx = await coop.createMember(address, firstname, lastname, email)
-
-        addNotification({
-          position: 'bottom-center',
-          text: 'Member being created through tx ' + tx.hash,
-        })
-
+        const tx = await coop.createMember(member.address, member.firstname, member.lastname, member.email)
+        notify.default('Member being added through tx ' + tx.hash)
         await tx.wait()
-
-        addNotification({
-          position: 'bottom-center',
-          type: 'success',
-          text: 'Member created! You will be redirected soon ...',
-        })
-
+        notify.success('Member added. You will be redirected soon ...')
         setTimeout(() => {
-          clearNotifications()
-          navigateTo('/admin/members/edit/' + address)
-        }, 7000)
+          notify.clear()
+          navigateTo('/admin/members/edit/' + member.address.toLowerCase())
+        }, 2000)
       } catch (e) {
-        loading = false
-
-        addNotification({
-          position: 'bottom-center',
-          type: 'danger',
-          text: e.message,
-        })
+        notify.error(e.message)
       }
-    } else {
-      loading = false
     }
+
+    loading = false
   }
 </script>
 
 <Main>
   <Title>
-    <h1>Add a member</h1>
+    <h1>member</h1>
+    <h2>{member.address}</h2>
   </Title>
   <Links>
     <Link href="/admin/members" class="x-small">« go back</Link>
   </Links>
-  <Content class="form">
-    <!-- <section class="form"> -->
-    <div class="entry">
-      <label for="address">Ethereum address</label>
-      <input id="address" bind:value={address} placeholder="0x1df62f291b2e969fb0849d99d9ce41e2f137006e" />
-      <p class="info x-small">{errors.address}</p>
-    </div>
-    <div class="entry">
-      <label for="firstname">firstname</label>
-      <input id="firstname" bind:value={firstname} placeholder="firstname" />
-      <p class="info x-small">{errors.firstname}</p>
-    </div>
-    <div class="entry">
-      <label for="lastname">lastname</label>
-      <input id="lastname" bind:value={lastname} placeholder="firstname" />
-      <p class="info x-small">{errors.lastname}</p>
-    </div>
-    <div class="entry">
-      <label for="email">email</label>
-      <input id="email" bind:value={email} type="email" placeholder="member@email.com" />
-      <p class="info x-small">{errors.email}</p>
-    </div>
-    <Button class="space-top" disabled={loading} on:click={create}>create</Button>
-    <!-- </section> -->
+  <Content class="flex column justify-center">
+    <Form>
+      <Input class="space-bottom" id="address" placeholder="0x" message={errors.address} bind:value={member.address} />
+      <Input class="space-bottom" id="firstname" placeholder="firstname" message={errors.firstname} bind:value={member.firstname} />
+      <Input class="space-bottom" id="lastname" placeholder="lastname" message={errors.lastname} bind:value={member.lastname} />
+      <Input class="space-bottom" id="email" placeholder="email" message={errors.email} bind:value={member.email} />
+      <Button disabled={loading} on:click={add}>add</Button>
+    </Form>
   </Content>
 </Main>

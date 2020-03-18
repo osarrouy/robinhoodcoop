@@ -1,11 +1,12 @@
 <script>
-  import Notifications from 'svelte-notifications'
-
-  import { onMount } from 'svelte'
-  import { Router, Route } from 'yrv'
-  import Admin from '/routes/admin/Home.svelte'
   import Home from '/routes/Home.svelte'
-
+  import { MembersCreate, MembersEdit, MembersList } from '/routes/admin/members/index.js'
+  import { Shares } from '/routes/admin/shares/index.js'
+  import { Burger, Nav } from '/sections/admin/index.js'
+  import { RHC } from '/lib/index.js'
+  import { onMount } from 'svelte'
+  import Notifications from 'svelte-notifications'
+  import { Router, Route } from 'yrv'
   import { admin } from '/stores/admin/admin'
 
   let ethereum = null
@@ -53,10 +54,28 @@
 
 <Notifications>
   <Router nofallback>
-    <Route exact path="/" component={Home} />
-  </Router>
-
-  <Router path="/admin">
-    <Route component={Admin} />
+    <Route exact component={Home} />
+    <Route exact path="/admin" redirect="/admin/members" />
+    <Route exact path="/admin/members">
+      <Nav />
+      <Burger />
+      <MembersList />
+    </Route>
+    <Route exact path="/admin/members/create">
+      <Nav />
+      <Burger />
+      <MembersCreate />
+    </Route>
+    <Route exact path="/admin/members/edit/:address">
+      <Nav />
+      <Burger />
+      <MembersEdit />
+    </Route>
+    <Route exact path="/admin/shares">
+      <Nav />
+      <Burger />
+      <Shares />
+    </Route>
+    <Route fallback component={Home} />
   </Router>
 </Notifications>
