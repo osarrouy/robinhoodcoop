@@ -1,12 +1,12 @@
 <script>
   import { Animate } from '/components/index.js'
+  import { Member } from '/lib/index.js'
   import { member } from '/stores/member.js'
   import { screen } from '/stores/screen.js'
 
   const logout = async () => {
-    await $member.account.logout()
+    await Member.logout()
     screen.set('home')
-    member.set(null)
   }
 </script>
 

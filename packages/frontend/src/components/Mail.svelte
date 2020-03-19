@@ -1,8 +1,8 @@
 <script>
-  export let user;
+  export let user
 </script>
 
 <a
-  href="mailto:contact@robinhoodcoop.com?subject=[member-registration]&body=---begin%0d{user.email}%0d{user.address}%0d---end">
+  href="mailto:contact@robinhoodcoop.com?subject=[member-registration]&body=---begin%0d{user.firstname}%0d{user.lastname}%0d{user.email}%0d{user.address}%0d---end">
   <slot />
 </a>

@@ -6,9 +6,13 @@
 @mixin title {
   color: rgba(255, 255, 255, 1);
   font-family: 'Monoton';
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 100;
   line-height: 1em;
   text-shadow: 0 0 7px #fff;
   text-transform: uppercase;
+}
+
+@mixin x-small {
+  font-size: 0.8rem;
 }

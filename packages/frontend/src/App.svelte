@@ -44,10 +44,8 @@
           network = chain
         })
       }
-    } catch (e) {}
-
-    if (isAdmin) {
-      navigateTo('/admin/members')
+    } catch (e) {
+      console.log(e.message)
     }
   })
 </script>
@@ -71,10 +69,10 @@
         <Burger />
         <MembersCreate />
       </Route>
-      <Route exact path="/admin/members/edit/:address">
+      <Route exact path="/admin/members/edit/:address" let:router>
         <Nav />
         <Burger />
-        <MembersEdit />
+        <MembersEdit {router} />
       </Route>
       <Route exact path="/admin/shares">
         <Nav />

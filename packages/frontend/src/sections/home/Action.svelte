@@ -1,5 +1,5 @@
 <script>
-  import { Dispatch, Member, Login, Signup } from './actions/index.js'
+  import { Dispatch, Login, Member, Signup } from './actions/index.js'
   import { screen } from '/stores/screen.js'
 </script>
 

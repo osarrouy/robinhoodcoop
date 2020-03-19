@@ -15,7 +15,7 @@
   }
 </style>
 
-<section class="error">
+<section>
   {#if !metamask}
     <img src="/img/metamask.png" alt="Metamask" />
     <p>

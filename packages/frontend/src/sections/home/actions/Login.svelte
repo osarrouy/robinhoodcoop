@@ -1,51 +1,61 @@
 <script>
   import { Animate, Button } from '/components/index.js'
-  import { RHC } from '/lib/index.js'
-  import { member } from '/stores/member.js'
+  import { Member } from '/lib/index.js'
   import { screen } from '/stores/screen.js'
-  import Fortmatic from 'fortmatic'
 
-  let loading = false
   let email = ''
+  let loading = false
   let message = ''
+  let reLoggedIn = false
 
-  const fm = new Fortmatic.Phantom('pk_test_E8CFA540256573E8')
-  const coop = RHC.new()
+  const reLogin = async () => {
+    try {
+      await Member.login()
+      if (await Member.isMember()) {
+        screen.set('dashboard')
+      } else {
+        Member.logout()
+      }
+    } catch (e) {
+      console.log(e.message)
+    }
+
+    reLoggedIn = true
+  }
 
   const login = async email => {
     loading = true
-    message = ''
+    message = 'Check your inbox [including your spam folder].'
 
     try {
-      message = 'Check your inbox [including your spam folder].'
-      const account = await fm.loginWithMagicLink({ email, showUI: false })
-
-      const metadata = await account.getMetadata()
-      await account.isLoggedIn()
-
-      if (await coop.isMember(metadata.publicAddress)) {
-        member.set({ address: metadata.publicAddress, email: metadata.email, account })
+      await Member.authenticate(email)
+      await Member.login()
+      if (await Member.isMember()) {
         screen.set('dashboard')
       } else {
+        Member.logout()
         message = 'This address is not associated to a Robin Hood member. Please provide an identified email address or signup.'
       }
-
-      member.set({ address: metadata.publicAddress, email: metadata.email, account })
-      screen.set('dashboard')
     } catch (e) {
-      message = 'Please provide a valid email address.'
+      message = e.message
     }
 
     loading = false
   }
+
+  reLogin()
 </script>
 
 <Animate>
-  <div class="flex column">
-    <div class="flex">
-      <input class="space-right" bind:value={email} placeholder="name@email.com" />
-      <Button disabled={loading} on:click={() => login(email)}>login</Button>
-    </div>
-    <p class="info x-small space-top">{message}</p>
-  </div>
+  <section class="flex column">
+    {#if reLoggedIn}
+      <div class="flex">
+        <input class="space-right" bind:value={email} placeholder="name@email.com" />
+        <Button disabled={loading} on:click={() => login(email)}>login</Button>
+      </div>
+      <p class="info space-top">{message}</p>
+    {:else}
+      <p class="small">checking if a member is already logged in ...</p>
+    {/if}
+  </section>
 </Animate>

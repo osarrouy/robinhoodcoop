@@ -10,12 +10,7 @@
     justify-self: end;
 
     h1 {
-      color: #fff;
-      font-family: 'Monoton';
-      font-size: 3rem;
-      font-weight: 100;
-      line-height: 1em;
-      text-transform: uppercase;
+      @include title;
     }
   }
 </style>
