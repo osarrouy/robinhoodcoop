@@ -1,6 +1,9 @@
 {
   "name": "@robinhoodcoop/frontend",
   "version": "1.0.0",
+  "author": "Olivier Sarrouy <osarrouy@protonmail.com>",
+  "license": "(GPL-3.0-or-later OR AGPL-3.0-or-later)",
+  "homepage": "https://github.com/osarrouy/robinhoodcoop",
   "scripts": {
     "lint": "npx eslint src --ext .svelte,.js",
     "build": "rollup -c",
@@ -10,7 +13,6 @@
     "start:dev": "sirv public --single --dev"
   },
   "devDependencies": {
-    "@beyonk/svelte-toggle": "^0.1.2",
     "@rollup/plugin-commonjs": "^11.0.0",
     "@rollup/plugin-node-resolve": "^7.0.0",
     "autoprefixer": "^9.7.4",
@@ -37,9 +39,6 @@
     "subscriptions-transport-ws": "^0.9.16",
     "svelte-notifications": "^0.9.9",
     "svelte-observable": "^0.4.0",
-    "svelte-persistent-store": "^0.1.1",
-    "svelte-routing": "^1.4.0",
-    "svelte-select": "^3.4.0",
     "svelte-spinner": "^2.0.2",
     "yrv": "0.0.25"
   }
