@@ -5,11 +5,10 @@
 
 <style type="text/scss">
   .wrapper {
-    padding: 0 3rem;
+    padding: 0 #{3 * $spacing};
     min-height: 100vh;
 
     main {
-      margin: 0 auto;
       display: grid;
       grid-template-rows: calc(50% - 0.5rem) calc(50% - 0.5rem);
       grid-template-columns: 30% 65%;
@@ -19,10 +18,9 @@
       grid-column-gap: 5%;
       grid-row-gap: 1rem;
       align-content: stretch;
-
       align-items: stretch;
       justify-items: stretch;
-
+      margin: 0 auto;
       min-height: 100vh;
       width: 100%;
     }

@@ -62,7 +62,7 @@
       content: '';
       position: absolute;
       background: #fff;
-      opacity: 20%;
+      opacity: 0.2;
       top: 50%;
       bottom: 50%;
       left: 0;

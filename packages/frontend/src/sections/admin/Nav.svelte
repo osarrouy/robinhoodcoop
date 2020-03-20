@@ -1,6 +1,5 @@
 <script>
   import { nav } from '/stores/admin/nav.js'
-  import { admin } from '/stores/admin/admin.js'
   import { Link } from 'yrv'
 </script>
 
@@ -17,32 +16,23 @@
     overflow: hidden;
     transition: all 250ms ease-in-out;
 
-    * {
-      overflow: hidden;
-    }
-
     &.opened {
       left: 0;
     }
 
-    .account {
-      margin: 1rem 1rem 2rem 1rem;
-      min-height: 1.3em;
-    }
-
     ul {
       li {
-        margin: 1rem 0;
+        margin: $spacing 0;
 
         :global(a) {
-          line-height: 2rem;
-          padding: 1rem 1rem 1rem 1rem;
+          line-height: #{2 * $spacing};
+          padding: $spacing;
           text-decoration: none;
 
           &[aria-current] {
             border-left: 2px solid white;
             color: white;
-            padding-left: calc(1rem - 2px);
+            padding-left: calc(#{$spacing} - 2px);
           }
         }
       }
@@ -51,12 +41,6 @@
 </style>
 
 <nav class="nav {$nav ? 'opened' : ''}">
-  <p class="account x-small">
-    <!-- {#if $admin !== ''}
-      {$admin}
-      <a on:click={() => ($admin = '')}>logout</a>
-    {/if} -->
-  </p>
   <ul>
     <li>
       <Link href="/admin/members">members</Link>

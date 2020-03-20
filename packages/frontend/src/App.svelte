@@ -9,7 +9,6 @@
   import { onMount } from 'svelte'
   import Notifications from 'svelte-notifications'
   import { Router, Route } from 'yrv'
-  import { admin } from '/stores/admin/admin'
 
   let metamask = false
   let network = null
@@ -33,11 +32,9 @@
         account = (await window.ethereum.enable())[0]
         network = window.ethereum.networkVersion
         metamask = true
-        console.log(account)
 
         window.ethereum.on('accountsChanged', accounts => {
           account = accounts[0]
-          console.log(account)
         })
 
         window.ethereum.on('networkChanged', chain => {

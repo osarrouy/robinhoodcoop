@@ -21,6 +21,17 @@ export const MEMBERS = gql`
     }
   }
 `
+export const SEARCH_MEMBERS = gql`
+  subscription members($where: Member_filter!) {
+    members(where: $where) {
+      address
+      shares
+      firstname
+      lastname
+      email
+    }
+  }
+`
 
 export const MEMBER = gql`
   subscription member($id: String) {

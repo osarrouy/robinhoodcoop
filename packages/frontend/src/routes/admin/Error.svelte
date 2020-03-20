@@ -6,16 +6,12 @@
 
 <style type="text/scss">
   section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     min-height: 100vh;
     width: 100vw;
   }
 </style>
 
-<section>
+<section class="flex column centered">
   {#if !metamask}
     <img src="/img/metamask.png" alt="Metamask" />
     <p>

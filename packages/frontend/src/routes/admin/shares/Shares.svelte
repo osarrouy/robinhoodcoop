@@ -1,17 +1,19 @@
 <script>
-  import { Content, Main, Title } from '/sections/admin/index.js'
   import Button from '/components/Button'
-  import { notify, toFormattedDecimals, toFixed, RHC } from '/lib/index.js'
+  import { Content, Main, Title } from '/sections/admin/index.js'
+  import { notify, toFormattedDecimals, toFixed, RHC, RHS } from '/lib/index.js'
   import { onMount } from 'svelte'
 
   let coop = RHC.new()
+  let loading = false
+  let share = RHS.new()
   let supply = '...'
   let value = '...'
-  let loading = false
   let update
 
-  const fetchValue = async () => {
+  const fetchValueAndSupply = async () => {
     value = toFormattedDecimals(await coop.value())
+    supply = toFormattedDecimals(await share.totalSupply())
   }
 
   const updateValue = async () => {
@@ -23,7 +25,7 @@
       await tx.wait()
       notify.success('Value updated')
       update = null
-      await fetchValue()
+      await fetchValueAndSupply()
     } catch (e) {
       notify.error(e.message)
     }
@@ -32,7 +34,7 @@
   }
 
   onMount(() => {
-    fetchValue()
+    fetchValueAndSupply()
   })
 </script>
 
@@ -40,7 +42,7 @@
   :global(.shares) {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 2rem);
+    min-height: calc(100vh - #{2 * $spacing});
     align-items: flex-start;
     justify-content: center;
 
@@ -62,7 +64,7 @@
     <table>
       <tr>
         <td class="strong">supply</td>
-        <td>5439.54 shares</td>
+        <td>{supply} shares</td>
       </tr>
       <tr>
         <td class="strong">value</td>

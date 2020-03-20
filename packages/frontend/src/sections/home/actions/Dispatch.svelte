@@ -12,7 +12,7 @@
     </div>
     <p class="x-small space-top">
       or login
-      <Link href="/admin/members">here</Link>
+      <Link href="/admin">here</Link>
       if you are an admin
     </p>
   </div>

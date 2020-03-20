@@ -1,34 +1,10 @@
 <script>
-  import { Content, Main, Title } from '/sections/admin/index.js'
   import { Button, Loading } from '/components/index.js'
-
-  import { graphql, ALL_MEMBERS } from '/lib/graphql'
-  import { gql } from 'apollo-boost'
-
+  import { Content, Main, Title } from '/sections/admin/index.js'
+  import { graphql, SEARCH_MEMBERS } from '/lib/graphql'
   import { observe } from 'svelte-observable'
   import { Link, navigateTo } from 'yrv'
 
-  import Select from 'svelte-select'
-
-  const items = ['One', 'Two', 'Three']
-
-  const SEARCH = gql`
-    subscription members($where: Member_filter!) {
-      members(where: $where) {
-        address
-        shares
-        firstname
-        lastname
-        email
-      }
-    }
-  `
-  // where: {
-  //       _and: [
-  //         { published_on: {_gte: "2017-01-01"}},
-  //         { published_on: {_lte: "2017-12-31"}}
-  //       ]
-  //     }
   let members
   let search
   let searchOn = 'firstname'
@@ -52,7 +28,7 @@
 
     members = observe(
       graphql.subscribe({
-        query: SEARCH,
+        query: SEARCH_MEMBERS,
         variables: { where },
       })
     )
@@ -71,9 +47,9 @@
     height: calc(100vh - 2rem);
 
     .data {
-      position: relative;
       grid-area: data;
       overflow: scroll;
+      position: relative;
     }
 
     .top {
@@ -128,7 +104,6 @@
         <span class="space-left small">or</span>
         <Button class="space-left" type="small" on:click={() => navigateTo('/admin/members/create')}>add a member</Button>
       </div>
-
       <div class="data">
         <table class="list">
           <tr>
@@ -141,51 +116,6 @@
           {#await $members}
             <Loading />
           {:then members}
-
-            {#each members.data.members as member}
-              <tr class="small">
-                <td>{member.firstname}</td>
-                <td>{member.lastname}</td>
-                <td>{member.email}</td>
-                <td>{member.shares}</td>
-                <td>
-                  <Link href="/admin/members/edit/{member.address}">edit »</Link>
-                </td>
-              </tr>
-            {/each}
-            {#each members.data.members as member}
-              <tr class="small">
-                <td>{member.firstname}</td>
-                <td>{member.lastname}</td>
-                <td>{member.email}</td>
-                <td>{member.shares}</td>
-                <td>
-                  <Link href="/admin/members/edit/{member.address}">edit »</Link>
-                </td>
-              </tr>
-            {/each}
-            {#each members.data.members as member}
-              <tr class="small">
-                <td>{member.firstname}</td>
-                <td>{member.lastname}</td>
-                <td>{member.email}</td>
-                <td>{member.shares}</td>
-                <td>
-                  <Link href="/admin/members/edit/{member.address}">edit »</Link>
-                </td>
-              </tr>
-            {/each}
-            {#each members.data.members as member}
-              <tr class="small">
-                <td>{member.firstname}</td>
-                <td>{member.lastname}</td>
-                <td>{member.email}</td>
-                <td>{member.shares}</td>
-                <td>
-                  <Link href="/admin/members/edit/{member.address}">edit »</Link>
-                </td>
-              </tr>
-            {/each}
             {#each members.data.members as member}
               <tr class="small">
                 <td>{member.firstname}</td>
@@ -198,9 +128,7 @@
               </tr>
             {/each}
           {/await}
-
         </table>
-
       </div>
     </div>
   </Content>
