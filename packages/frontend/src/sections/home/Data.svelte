@@ -1,67 +1,38 @@
 <script>
-  import { Animate } from '/components/index.js'
+  import { Animate }                                from '/components/index.js'
   import { graphql, toDecimals, MEMBERS, RHC, RHS } from '/lib/index.js'
-  import { screen } from '/stores/screen.js'
-  import { member } from '/stores/member.js'
-  import BigNumber from 'bignumber.js'
-  import { CountUp } from 'countup.js'
+  import { screen }                                 from '/stores/screen.js'
+  import { member }                                 from '/stores/member.js'
+  import BigNumber                                  from 'bignumber.js'
 
-  let oLoaded = false
-  let pLoaded = false
+  let members   = '...'
+  let portfolio = '...'
+  let shares    = '...'
+  let supply    = '...'
+  let value     = '...'
 
-  const coop = RHC.new()
+  const coop  = RHC.new()
   const share = RHS.new()
 
-  const fetchPortfolio = async () => {
-    if (!pLoaded) {
-      pLoaded = true
-      oLoaded = false
+  graphql
+    .subscribe({
+      query: MEMBERS,
+    })
+    .subscribe(async result => {
+      supply  = toDecimals(await share.totalSupply())
+      members = result.data.members.length
+      value   = toDecimals(await coop.value())
+    })
 
-      const shares = toDecimals(await share.balanceOf($member.address))
-      const value = toDecimals(await coop.value())
-      const portfolio = new BigNumber(shares).multipliedBy(new BigNumber(value))
-
-      const cShares = new CountUp('m-shares', shares, { useEasing: false })
-      const cValue = new CountUp('m-value', value, { useEasing: false })
-      const cPortfolio = new CountUp('m-portfolio', portfolio.toNumber(), { useEasing: false })
-
-      cShares.start()
-      cValue.start()
-      cPortfolio.start()
-    }
-  }
-
-  const fetchOverall = async () => {
-    if (!oLoaded) {
-      oLoaded = true
-      pLoaded = false
-
-      graphql
-        .subscribe({
-          query: MEMBERS,
-        })
-        .subscribe(async result => {
-          const supply = await share.totalSupply()
-          const members = result.data.members.length
-          const value = await coop.value()
-          const cShares = new CountUp('o-shares', toDecimals(supply), { useEasing: false })
-          const cMembers = new CountUp('o-members', members, { useEasing: false })
-          const cValue = new CountUp('o-value', toDecimals(value), { useEasing: false })
-
-          cShares.start()
-          cMembers.start()
-          cValue.start()
-        })
-    }
-  }
-
-  $: {
-    if ($screen === 'dashboard') {
-      fetchPortfolio()
+  member.subscribe(async _member => {
+    if (_member) {
+      shares    = toDecimals(await share.balanceOf(_member.address))
+      portfolio = new BigNumber(shares).multipliedBy(new BigNumber(value)).toNumber()
     } else {
-      fetchOverall()
+      shares    = '...'
+      portfolio = '...'
     }
-  }
+  })
 </script>
 
 <style type="text/scss">
@@ -90,15 +61,15 @@
     <Animate>
       <table>
         <tr>
-          <td id="m-shares">0</td>
+          <td>{shares}</td>
           <td>shares</td>
         </tr>
         <tr>
-          <td id="m-value">0</td>
+          <td>{value}</td>
           <td>USD per share</td>
         </tr>
         <tr>
-          <td id="m-portfolio">0</td>
+          <td>{portfolio}</td>
           <td>$ total</td>
         </tr>
       </table>
@@ -107,15 +78,15 @@
     <Animate>
       <table>
         <tr>
-          <td id="o-members">0</td>
+          <td>{members}</td>
           <td>members</td>
         </tr>
         <tr>
-          <td id="o-shares">0</td>
+          <td>{supply}</td>
           <td>shares</td>
         </tr>
         <tr>
-          <td id="o-value">0</td>
+          <td>{value}</td>
           <td>USD per share</td>
         </tr>
       </table>

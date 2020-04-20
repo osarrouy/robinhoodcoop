@@ -31,7 +31,6 @@
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-link-ws": "^1.0.19",
     "bignumber.js": "^9.0.0",
-    "countup.js": "^2.0.4",
     "ethers": "^4.0.45",
     "fortmatic": "^2.0.1",
     "graphql": "^14.6.0",
