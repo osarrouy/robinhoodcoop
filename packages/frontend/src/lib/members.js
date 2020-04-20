@@ -1,24 +1,39 @@
-import { RHC } from './coop.js'
+import ethers     from 'ethers'
+import Fortmatic  from 'fortmatic'
+import { RHC }    from './coop.js'
 import { member } from '/stores/member.js'
-import { get } from 'svelte/store'
-
-import Fortmatic from 'fortmatic'
+import { get }    from 'svelte/store'
 
 const KEY = 'pk_live_466F6781B380D059'
 
-export const fortmatic = new Fortmatic.Phantom(KEY)
+export const fortmatic = new Fortmatic(KEY)
 
 export const Member = {
-  login: async () => {
+  relogin : async () => {
     if (await fortmatic.user.isLoggedIn()) {
-      const metadata = await fortmatic.user.getMetadata()
-      member.set({ address: metadata.publicAddress, email: metadata.email, account: fortmatic.user })
+      const provider = new ethers.providers.Web3Provider(fortmatic.getProvider())
+      const accounts = await provider.listAccounts()
+      const metadata = await fortmatic.user.getUser(); 
+      const coop = RHC.new()
+      if (await coop.isMember(accounts[0])) {
+        member.set({ address: accounts[0], email: metadata.email, account: fortmatic.user })
+        return true
+      } else {
+        Member.logout()
+        return false
+      }
     } else {
-      member.set(null)
+      return false
     }
   },
-  authenticate: async email => {
-    await fortmatic.loginWithMagicLink({ email, showUI: false })
+  login: async () => {
+    if (!await Member.relogin()) {
+      await fortmatic.user.login()
+      const provider = new ethers.providers.Web3Provider(fortmatic.getProvider())
+      const accounts = await provider.listAccounts()
+      const metadata = await fortmatic.user.getUser(); 
+      member.set({ address: accounts[0], email: metadata.email, account: fortmatic.user })
+    }
   },
   isMember: async () => {
     if (!get(member)) {

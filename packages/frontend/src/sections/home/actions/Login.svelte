@@ -1,11 +1,11 @@
 <script>
   import { Animate, Button } from '/components/index.js'
-  import { Member } from '/lib/index.js'
-  import { screen } from '/stores/screen.js'
+  import { Member }          from '/lib/index.js'
+  import { screen }          from '/stores/screen.js'
 
-  let email = ''
-  let loading = false
-  let message = ''
+  let email      = ''
+  let loading    = false
+  let message    = ''
   let reLoggedIn = false
 
   const reLogin = async () => {
@@ -34,7 +34,7 @@
         screen.set('dashboard')
       } else {
         Member.logout()
-        message = 'This address is not associated to a Robin Hood member. Please provide an identified email address or signup.'
+        message = 'This address is not associated to a Robin Hood member.'
       }
     } catch (e) {
       message = e.message
