@@ -50,4 +50,4 @@ npm run graph:create:local
 npm run graph:deploy:local
 ```
 
-##### » head to [http://localhost:8000/subgraphs/name/osarrouy/robinhoodcoop/](http://localhost:8000/subgraphs/name/osarrouy/robinhoodcoop/)
+##### » head to [http://localhost:8000/subgraphs/name/osarrouy/robinhoodcoop/graphql](http://localhost:8000/subgraphs/name/osarrouy/robinhoodcoop/graphql)

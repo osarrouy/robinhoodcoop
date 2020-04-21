@@ -1,8 +1,10 @@
 type Member @entity {
   id: ID!
   address: Bytes!
-  firstname: String
-  lastname: String
-  email: String
   shares: BigDecimal
+}
+
+type Admin @entity {
+  id: ID!
+  address: Bytes!
 }

@@ -6,31 +6,35 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: RobinHoodCoop
-    network: mainnet
+    network: kovan
     source:
-      address: '0xCcCAF3c9E3527c97F72C43365c082EcE4600C256'
+      address: '0x2CEe3f3C8b09d8e75137936CfB9Fb8F21F3654df'
       abi: RobinHoodCoop
+      startBlock: 17213780
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.3
       language: wasm/assemblyscript
       entities:
-        - Admin
+        - Member
       abis:
         - name: RobinHoodCoop
           file: ./abis/RobinHoodCoop.json
       eventHandlers:
-        - event: GrantedAdmin(indexed address)
-          handler: handleGrantedAdmin
-        - event: RevokedAdmin(indexed address)
-          handler: handleRevokedAdmin
+        - event: 'CreatedMember(indexed address,string,string,string)'
+          handler: handleCreatedMember
+        - event: 'UpdatedMember(indexed address,string,string,string)'
+          handler: handleUpdatedMember
+        - event: 'DeletedMember(indexed address)'
+          handler: handleDeletedMember
       file: ./src/mapping.ts
   - kind: ethereum/contract
     name: RobinHoodShare
-    network: mainnet
+    network: kovan
     source:
-      address: '0xbA19a490CbEf44516bA9468D22649A2BBf09f67B'
+      address: '0x5A09A48a3c5648930604F7ea6248470b44d3b45A'
       abi: RobinHoodShare
+      startBlock: 17213780
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.3
