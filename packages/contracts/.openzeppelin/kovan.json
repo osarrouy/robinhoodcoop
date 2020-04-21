@@ -1,11 +1,11 @@
 {
   "contracts": {
     "RobinHoodCoop": {
-      "address": "0x403A52F301F3287168cc21046600C7ecDb3c8Dec",
-      "constructorCode": "608060405234801561001057600080fd5b50612c17806100206000396000f3fe",
-      "bodyBytecodeHash": "0109c7fe667efe55032ef00594bda2d2279e0ea59ae4c149a19d0f578728b680",
-      "localBytecodeHash": "f3921d7fbbf2ea205c94f3232c3f7016248cebfacc1a55faede89add55f5ca5d",
-      "deployedBytecodeHash": "f3921d7fbbf2ea205c94f3232c3f7016248cebfacc1a55faede89add55f5ca5d",
+      "address": "0x995B6bd4091E600Ff4a16E2A8655938b585258cd",
+      "constructorCode": "608060405234801561001057600080fd5b50612051806100206000396000f3fe",
+      "bodyBytecodeHash": "1c483c82c9d83bf5d89d4cccb2e0511eb7e58503ba4cf6b057a52d4ebe13b441",
+      "localBytecodeHash": "e840ac489031ab031e4425bc38cb5e18602b4d8970018696d766f26b62f5125b",
+      "deployedBytecodeHash": "e840ac489031ab031e4425bc38cb5e18602b4d8970018696d766f26b62f5125b",
       "types": {
         "t_bool": {
           "id": "t_bool",
@@ -34,48 +34,6 @@
           "valueType": "t_bool",
           "label": "mapping(key => bool)",
           "kind": "mapping"
-        },
-        "t_struct<RobinHoodCoop.Member>": {
-          "id": "t_struct<RobinHoodCoop.Member>",
-          "kind": "struct",
-          "label": "RobinHoodCoop.Member",
-          "members": [
-            {
-              "label": "exists",
-              "astId": 8,
-              "type": "t_bool",
-              "src": "321:13:0"
-            },
-            {
-              "label": "firstname",
-              "astId": 10,
-              "type": "t_string",
-              "src": "344:16:0"
-            },
-            {
-              "label": "lastname",
-              "astId": 12,
-              "type": "t_string",
-              "src": "370:15:0"
-            },
-            {
-              "label": "email",
-              "astId": 14,
-              "type": "t_string",
-              "src": "395:12:0"
-            }
-          ]
-        },
-        "t_string": {
-          "id": "t_string",
-          "kind": "elementary",
-          "label": "string"
-        },
-        "t_mapping<t_struct<RobinHoodCoop.Member>>": {
-          "id": "t_mapping<t_struct<RobinHoodCoop.Member>>",
-          "valueType": "t_struct<RobinHoodCoop.Member>",
-          "label": "mapping(key => RobinHoodCoop.Member)",
-          "kind": "mapping"
         }
       },
       "storage": [
@@ -83,7 +41,7 @@
           "contract": "Initializable",
           "path": "@openzeppelin/upgrades/contracts/Initializable.sol",
           "label": "initialized",
-          "astId": 1661,
+          "astId": 1351,
           "type": "t_bool",
           "src": "757:24:7"
         },
@@ -91,7 +49,7 @@
           "contract": "Initializable",
           "path": "@openzeppelin/upgrades/contracts/Initializable.sol",
           "label": "initializing",
-          "astId": 1663,
+          "astId": 1353,
           "type": "t_bool",
           "src": "876:25:7"
         },
@@ -99,7 +57,7 @@
           "contract": "Initializable",
           "path": "@openzeppelin/upgrades/contracts/Initializable.sol",
           "label": "______gap",
-          "astId": 1728,
+          "astId": 1418,
           "type": "t_array:50<t_uint256>",
           "src": "1982:29:7"
         },
@@ -107,33 +65,25 @@
           "contract": "RobinHoodCoop",
           "path": "contracts/RobinHoodCoop.sol",
           "label": "share",
-          "astId": 17,
+          "astId": 7,
           "type": "t_address",
-          "src": "420:40:0"
+          "src": "263:38:0"
         },
         {
           "contract": "RobinHoodCoop",
           "path": "contracts/RobinHoodCoop.sol",
           "label": "value",
-          "astId": 19,
+          "astId": 9,
           "type": "t_uint256",
-          "src": "466:40:0"
+          "src": "307:38:0"
         },
         {
           "contract": "RobinHoodCoop",
           "path": "contracts/RobinHoodCoop.sol",
-          "label": "_isAdmin",
-          "astId": 23,
+          "label": "isAdmin",
+          "astId": 13,
           "type": "t_mapping<t_bool>",
-          "src": "512:43:0"
-        },
-        {
-          "contract": "RobinHoodCoop",
-          "path": "contracts/RobinHoodCoop.sol",
-          "label": "_members",
-          "astId": 27,
-          "type": "t_mapping<t_struct<RobinHoodCoop.Member>>",
-          "src": "561:43:0"
+          "src": "351:40:0"
         }
       ],
       "warnings": {
@@ -148,7 +98,43 @@
           "math/SafeMath.sol",
           "token/ERC20/ERC20Detailed.sol"
         ],
-        "uninitializedBaseContracts": []
+        "uninitializedBaseContracts": [],
+        "storageUncheckedVars": [],
+        "storageDiff": [
+          {
+            "action": "rename",
+            "updated": {
+              "index": 5,
+              "contract": "RobinHoodCoop",
+              "path": "contracts/RobinHoodCoop.sol",
+              "label": "isAdmin",
+              "astId": 13,
+              "type": "t_mapping<t_bool>",
+              "src": "351:40:0"
+            },
+            "original": {
+              "index": 5,
+              "contract": "RobinHoodCoop",
+              "path": "contracts/RobinHoodCoop.sol",
+              "label": "_isAdmin",
+              "astId": 23,
+              "type": "t_mapping<t_bool>",
+              "src": "512:43:0"
+            }
+          },
+          {
+            "action": "pop",
+            "original": {
+              "index": 6,
+              "contract": "RobinHoodCoop",
+              "path": "contracts/RobinHoodCoop.sol",
+              "label": "_members",
+              "astId": 27,
+              "type": "t_mapping<t_struct<RobinHoodCoop.Member>>",
+              "src": "561:43:0"
+            }
+          }
+        ]
       }
     }
   },
@@ -159,6 +145,13 @@
         "address": "0x2CEe3f3C8b09d8e75137936CfB9Fb8F21F3654df",
         "version": "1.0.0",
         "implementation": "0x403A52F301F3287168cc21046600C7ecDb3c8Dec",
+        "admin": "0x0f8C1ba6CE2C79aEffaf13613691caAF57816d13",
+        "kind": "Upgradeable"
+      },
+      {
+        "address": "0xdA08FcdD705750A6738445a6E9c2D76dAE6d8576",
+        "version": "1.0.0",
+        "implementation": "0x995B6bd4091E600Ff4a16E2A8655938b585258cd",
         "admin": "0x0f8C1ba6CE2C79aEffaf13613691caAF57816d13",
         "kind": "Upgradeable"
       }
