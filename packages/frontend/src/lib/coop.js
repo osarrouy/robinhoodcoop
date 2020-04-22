@@ -1,7 +1,7 @@
-import ABI from '/lib/RobinHoodCoop.js'
+import ABI    from '/lib/RobinHoodCoop.js'
 import ethers from 'ethers'
 
-const ADDRESS = '0x2cee3f3c8b09d8e75137936cfb9fb8f21f3654df'
+const ADDRESS = '0xdA08FcdD705750A6738445a6E9c2D76dAE6d8576'
 
 export const RHC = {
   new: () => {
