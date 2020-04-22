@@ -1,6 +1,6 @@
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { InMemoryCache }     from 'apollo-cache-inmemory'
 import { ApolloClient, gql } from 'apollo-boost'
-import { WebSocketLink } from 'apollo-link-ws'
+import { WebSocketLink }     from 'apollo-link-ws'
 
 export const ALL_MEMBERS = gql`
   subscription {
@@ -18,6 +18,8 @@ export const MEMBERS = gql`
   subscription {
     members(orderDirection: asc) {
       id
+      address
+      shares
     }
   }
 `
@@ -26,9 +28,6 @@ export const SEARCH_MEMBERS = gql`
     members(where: $where) {
       address
       shares
-      firstname
-      lastname
-      email
     }
   }
 `
@@ -38,9 +37,6 @@ export const MEMBER = gql`
     member(id: $id) {
       address
       shares
-      firstname
-      lastname
-      email
     }
   }
 `

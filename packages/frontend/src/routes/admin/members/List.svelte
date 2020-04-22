@@ -1,38 +1,25 @@
 <script>
-  import { Button, Loading } from '/components/index.js'
+  import { Button, Loading }      from '/components/index.js'
   import { Content, Main, Title } from '/sections/admin/index.js'
-  import { graphql, SEARCH_MEMBERS } from '/lib/graphql'
-  import { observe } from 'svelte-observable'
-  import { Link, navigateTo } from 'yrv'
+  import { graphql, MEMBERS }     from '/lib/graphql'
+  import { observe }              from 'svelte-observable'
+  import { Link, navigateTo }     from 'yrv'
 
-  let members
-  let search
-  let searchOn = 'firstname'
+  let loading  = true
+  let _members = []
+  let members  = []
+  let search   = ''
 
   $: {
-    let where
-
-    switch (searchOn) {
-      case 'firstname':
-        where = { firstname_starts_with: search }
-        break
-      case 'lastname':
-        where = { lastname_starts_with: search }
-        break
-      case 'email':
-        where = { email_starts_with: search }
-        break
-      default:
-        where = { lastname_starts_with: search }
-    }
-
-    members = observe(
-      graphql.subscribe({
-        query: SEARCH_MEMBERS,
-        variables: { where },
-      })
-    )
+    members = _members.filter(member =>  member.address.startsWith(search))
   }
+
+  observe(graphql.subscribe({ query: MEMBERS })).subscribe(async members => {
+    _members = (await members).data.members
+    loading  = false
+  })
+  
+
 </script>
 
 <style type="text/scss">
@@ -94,12 +81,6 @@
       <div class="top">
         <div class="search">
           <input type="text" bind:value={search} placeholder="search" />
-          <select bind:value={searchOn}>
-            <option value="firstname">firstname</option>
-            <option value="lastname">lastname</option>
-            <option value="email">email</option>
-          </select>
-
         </div>
         <span class="space-left small">or</span>
         <Button class="space-left" type="small" on:click={() => navigateTo('/admin/members/create')}>add a member</Button>
@@ -107,27 +88,23 @@
       <div class="data">
         <table class="list">
           <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
+            <th>Address</th>
             <th>Shares</th>
             <th />
           </tr>
-          {#await $members}
+          {#if loading}
             <Loading />
-          {:then members}
-            {#each members.data.members as member}
+          {:else}
+            {#each members as member}
               <tr class="small">
-                <td>{member.firstname}</td>
-                <td>{member.lastname}</td>
-                <td>{member.email}</td>
+                <td><a href="{'https://etherscan.io/address/' + member.address}" target="_blank">{member.address}</a></td>
                 <td>{member.shares}</td>
                 <td>
                   <Link href="/admin/members/edit/{member.address}">edit »</Link>
                 </td>
               </tr>
             {/each}
-          {/await}
+          {/if}
         </table>
       </div>
     </div>
