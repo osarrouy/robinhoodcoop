@@ -1,29 +1,13 @@
 <script>
-  import { Button } from '/components/index.js'
-  import { notify, toFixed, RHC } from '/lib/index.js'
+  import { Button }                                from '/components/index.js'
+  import { notify, toDecimals, toFixed, RHC, RHS } from '/lib/index.js'
 
   export let member
 
-  let amount = 0
-  let coop = RHC.new()
+  let amount  = 0
+  let coop    = RHC.new()
   let loading = false
-
-  const burn = async () => {
-    loading = true
-
-    if (amount > 0) {
-      try {
-        const tx = await coop.burn(member.address, toFixed(amount))
-        notify.default('Shares being burnt through tx ' + tx.hash)
-        await tx.wait()
-        notify.success('Shares burnt')
-      } catch (e) {
-        notify.error(e.message)
-      }
-    }
-
-    loading = false
-  }
+  let share   = RHS.new()
 
   const mint = async () => {
     loading = true
@@ -34,6 +18,9 @@
         notify.default('Shares being minted through tx ' + tx.hash)
         await tx.wait()
         notify.success('Shares minted')
+        amount        = 0
+        const balance = await share.balanceOf(member.address)
+        member = { ...member, shares: toDecimals(balance) }
       } catch (e) {
         notify.error(e.message)
       }
@@ -49,16 +36,13 @@
     <span class="strong">{member.shares} RHS</span>
   </p>
   <div class="flex centered space-top">
-    <input class="space-right " id="amount" bind:value={amount} placeholder="0" />
+    <input class="space-right " id="amount-mint" bind:value={amount} placeholder="0" />
     <Button class="space-right" disabled={loading} on:click={mint}>mint</Button>
-    <span class="space-right info x-small">or</span>
-    <Button disabled={loading} on:click={burn}>burn</Button>
   </div>
   <p class="info x-small space-top">
-    WARNING. This amount will be minted or burnt and therefore
+    <span class="strong">WARNING.</span>
+    This amount will be minted and therefore
     <span class="strong">added</span>
-    or
-    <span class="strong">substracted</span>
     to the current member's balance.
   </p>
 </div>

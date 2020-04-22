@@ -1,16 +1,16 @@
 <script>
-  import { Button, Tab, Tabs } from '/components/index.js'
+  import { Button, Tab, Tabs }                    from '/components/index.js'
   import { isAddress, graphql, MEMBER, RHC, RHS } from '/lib/index.js'
-  import { Content, Links, Main, Title } from '/sections/admin/index.js'
-  import { Delete, Metadata, Shares } from './edit/index.js'
-  import { Link } from 'yrv'
+  import { Content, Links, Main, Title }          from '/sections/admin/index.js'
+  import { Burn, Mint }                           from './edit/index.js'
+  import { Link }                                 from 'yrv'
 
   export let router
 
   let address = router.params.address
-  let coop = RHC.new()
-  let shares = RHS.new()
-  let member = null
+  let coop    = RHC.new()
+  let shares  = RHS.new()
+  let member  = null
   let unknown = true
 
   graphql
@@ -53,22 +53,19 @@
 <Main>
   <Title>
     <h1>edit</h1>
-    <h2>{address}</h2>
+    <h2><a href="{'https://etherscan.io/address/' + address}" target="_blank">{address}</a></h2>
   </Title>
   <Links>
     <Link href="/admin/members" class="x-small">« go back</Link>
   </Links>
   <Content class="edit">
     {#if !unknown && member}
-      <Tabs tabs={['metadata', 'shares', 'delete']}>
+      <Tabs tabs={['mint', 'burn']}>
         <Tab>
-          <Metadata {member} />
+          <Mint bind:member />
         </Tab>
         <Tab>
-          <Shares {member} />
-        </Tab>
-        <Tab>
-          <Delete {member} />
+          <Burn bind:member />
         </Tab>
       </Tabs>
     {:else}
