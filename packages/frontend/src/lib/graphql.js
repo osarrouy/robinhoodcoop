@@ -23,6 +23,7 @@ export const MEMBERS = gql`
     }
   }
 `
+
 export const SEARCH_MEMBERS = gql`
   subscription members($where: Member_filter!) {
     members(where: $where) {
@@ -37,6 +38,15 @@ export const MEMBER = gql`
     member(id: $id) {
       address
       shares
+    }
+  }
+`
+
+export const ADMINS = gql`
+  subscription {
+    admins(orderDirection: asc) {
+      id
+      address
     }
   }
 `

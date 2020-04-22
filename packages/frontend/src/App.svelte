@@ -3,6 +3,7 @@
   import NotFound from '/routes/NotFound.svelte'
   import AdminError from '/routes/admin/Error.svelte'
   import { MembersCreate, MembersEdit, MembersList } from '/routes/admin/members/index.js'
+  import { AdminsCreate, AdminsList } from '/routes/admin/admins/index.js'
   import { Shares } from '/routes/admin/shares/index.js'
   import { Burger, Nav } from '/sections/admin/index.js'
   import { RHC } from '/lib/index.js'
@@ -75,6 +76,16 @@
         <Nav />
         <Burger />
         <Shares />
+      </Route>
+      <Route exact path="/admin/admins">
+        <Nav />
+        <Burger />
+        <AdminsList account={account}/>
+      </Route>
+      <Route exact path="/admin/admins/create">
+        <Nav />
+        <Burger />
+        <AdminsCreate />
       </Route>
     {:else}
       <Route exact path="/admin">
