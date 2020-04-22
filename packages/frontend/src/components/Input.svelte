@@ -4,6 +4,7 @@
   export let placeholder = ''
   export let value = ''
   export let _class = ''
+  export let type = ''
   export { _class as class }
 </script>
 
@@ -21,6 +22,10 @@
 
 <div class="input {_class}">
   <label for={id}>{id}</label>
-  <input {id} bind:value {placeholder} />
+  {#if type === 'number'}
+    <input {id} type="number" min="0" bind:value {placeholder} />
+  {:else}
+    <input {id} bind:value {placeholder} />
+  {/if}
   <p class="info x-small">{message}</p>
 </div>

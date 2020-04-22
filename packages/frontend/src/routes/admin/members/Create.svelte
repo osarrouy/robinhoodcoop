@@ -1,65 +1,47 @@
 <script>
-  import { Button, Form, Input } from '/components/index.js'
-  import { notify, isAddress, isValidEmail, isValidString, RHC } from '/lib/index'
-  import { Content, Links, Main, Title } from '/sections/admin/index.js'
-  import { Link, navigateTo } from 'yrv'
+  import { Button, Form, Input }             from '/components/index.js'
+  import { notify, isAddress, RHC, toFixed } from '/lib/index'
+  import { Content, Links, Main, Title }     from '/sections/admin/index.js'
+  import { Link, navigateTo }                from 'yrv'
 
-  let coop = RHC.new()
+  let coop    = RHC.new()
   let loading = false
-  let member = { address: '', firstname: '', lastname: '', email: '' }
-  let errors = { address: '', firstname: '', lastname: '', email: '' }
+  let member  = { address: '', shares: 0 }
+  let errors  = { address: '', shares: '' }
 
-  const validateAddress = () => {
+  const validateAddress = async () => {
     if (isAddress(member.address)) {
-      errors.address = ''
-      return true
+      if (!await coop.isMember(member.address)) {
+        errors.address = ''
+        return true
+      } else {
+        errors.address = 'this address already belongs to an existing member'
+        return false
+      }
     }
     errors.address = 'invalid ethereum address'
     return false
   }
 
-  const validateFirstname = () => {
-    if (isValidString(member.firstname)) {
-      errors.firstname = ''
+  const validateShares = () => {
+    if (member.shares > 0) {
+      errors.shares = ''
       return true
     }
-    errors.firstname = 'invalid firstname'
+    errors.shares = 'invalid amount of shares'
     return false
   }
 
-  const validateLastname = () => {
-    if (isValidString(member.lastname)) {
-      errors.lastname = ''
-      return true
-    }
-    errors.lastname = 'invalid lastname'
-    return false
-  }
-
-  const validateEmail = () => {
-    if (isValidEmail(member.email)) {
-      errors.email = ''
-      return true
-    }
-    errors.email = 'invalid email address'
-    return false
-  }
-
-  const validate = () => {
-    const a = validateAddress()
-    const f = validateFirstname()
-    const l = validateLastname()
-    const e = validateEmail()
-
-    return a && f && l && e
+  const validate = async () => {
+    return await validateAddress() && await validateShares()
   }
 
   const add = async () => {
     loading = true
 
-    if (validate()) {
+    if (await validate()) {
       try {
-        const tx = await coop.createMember(member.address, member.firstname, member.lastname, member.email)
+        const tx = await coop.mint(member.address, toFixed(member.shares))
         notify.default('Member being added through tx ' + tx.hash)
         await tx.wait()
         notify.success('Member added. You will be redirected soon ...')
@@ -86,10 +68,8 @@
   </Links>
   <Content class="flex column justify-center">
     <Form>
-      <Input class="space-bottom" id="address" placeholder="0x" message={errors.address} bind:value={member.address} />
-      <Input class="space-bottom" id="firstname" placeholder="firstname" message={errors.firstname} bind:value={member.firstname} />
-      <Input class="space-bottom" id="lastname" placeholder="lastname" message={errors.lastname} bind:value={member.lastname} />
-      <Input class="space-bottom" id="email" placeholder="email" message={errors.email} bind:value={member.email} />
+      <Input class="space-bottom" id="address"              placeholder="0x"     message={errors.address} bind:value={member.address} />
+      <Input class="space-bottom" id="shares" type="number" placeholder="shares" message={errors.shares}  bind:value={member.shares} />
       <Button disabled={loading} on:click={add}>add</Button>
     </Form>
   </Content>
