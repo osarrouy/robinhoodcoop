@@ -9,6 +9,15 @@
   let coop    = RHC.new()
   let loading = false
   let share   = RHS.new()
+  let top     = 0
+  
+  $: {
+    if (member) {
+      share.balanceOf(member.address).then(balance => {
+        top = toDecimals(balance)
+      })
+    }
+  }
 
   const burn = async (opts = { all: false}) => {
     loading = true
@@ -50,7 +59,7 @@
     <span class="strong">{member.shares} RHS</span>
   </p>
   <form class="flex centered space-top" on:submit|preventDefault={burn}>
-    <input class="space-right " id="amount-burn" type="number" min="0" step="0.01" bind:value={amount} placeholder="0" />
+    <input class="space-right " id="amount-burn" type="number" min="0" max={top} step="0.01" bind:value={amount} placeholder="0" />
     <Submit disabled={loading} value="burn" />
     <span class="space-left">or</span>
     <a class="space-left" href="/#" on:click|preventDefault={() => burn({ all: true })}>burn all</a>
