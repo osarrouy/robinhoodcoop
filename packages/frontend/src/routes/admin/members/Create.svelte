@@ -1,5 +1,5 @@
 <script>
-  import { Button, Form, Input }             from '/components/index.js'
+  import { Form, Input, Submit }             from '/components/index.js'
   import { notify, isAddress, RHC, toFixed } from '/lib/index'
   import { Content, Links, Main, Title }     from '/sections/admin/index.js'
   import { Link, navigateTo }                from 'yrv'
@@ -67,10 +67,10 @@
     <Link href="/admin/members" class="x-small">« go back</Link>
   </Links>
   <Content class="flex column justify-center">
-    <Form>
-      <Input class="space-bottom" id="address"              placeholder="0x"     message={errors.address} bind:value={member.address} />
-      <Input class="space-bottom" id="shares" type="number" placeholder="shares" message={errors.shares}  bind:value={member.shares} />
-      <Button disabled={loading} on:click={add}>add</Button>
+    <Form on:submit={add}>
+      <Input  class="space-bottom" id="address"                          placeholder="0x"     message={errors.address} bind:value={member.address} />
+      <Input  class="space-bottom" id="shares" type="number" step="0.01" placeholder="shares" message={errors.shares}  bind:value={member.shares}  />
+      <Submit disabled={loading} value="add" />
     </Form>
   </Content>
 </Main>

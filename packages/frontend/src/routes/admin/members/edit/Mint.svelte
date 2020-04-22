@@ -1,5 +1,5 @@
 <script>
-  import { Button }                                from '/components/index.js'
+  import { Submit }                                from '/components/index.js'
   import { notify, toDecimals, toFixed, RHC, RHS } from '/lib/index.js'
 
   export let member
@@ -35,10 +35,10 @@
     current member balance:
     <span class="strong">{member.shares} RHS</span>
   </p>
-  <div class="flex centered space-top">
-    <input class="space-right " id="amount-mint" bind:value={amount} placeholder="0" />
-    <Button class="space-right" disabled={loading} on:click={mint}>mint</Button>
-  </div>
+  <form class="flex space-top" on:submit|preventDefault={mint}>
+    <input class="space-right" id="amount-mint" type="number" min="0" step="0.01" bind:value={amount} placeholder="0" />
+    <Submit disabled={loading} class="space-right" value="mint" />
+  </form>
   <p class="info x-small space-top">
     <span class="strong">WARNING.</span>
     This amount will be minted and therefore

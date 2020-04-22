@@ -210,6 +210,10 @@ table.list td:last-of-type {
   display: flex;
 }
 
+.flex.row {
+  flex-direction: row;
+}
+
 .flex.column {
   flex-direction: column;
 }

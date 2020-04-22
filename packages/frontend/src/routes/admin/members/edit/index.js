@@ -1,3 +1,2 @@
-export { default as Delete } from './Delete.svelte'
-export { default as Metadata } from './Metadata.svelte'
-export { default as Shares } from './Shares.svelte'
+export { default as Burn } from './Burn.svelte'
+export { default as Mint } from './Mint.svelte'

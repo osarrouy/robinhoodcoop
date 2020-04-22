@@ -1,5 +1,5 @@
 <script>
-  import { Button }                                from '/components/index.js'
+  import { Submit }                                from '/components/index.js'
   import { notify, toDecimals, toFixed, RHC, RHS } from '/lib/index.js'
   import { Link, navigateTo }                      from 'yrv'
 
@@ -49,12 +49,12 @@
     current member balance:
     <span class="strong">{member.shares} RHS</span>
   </p>
-  <div class="flex centered space-top">
-    <input class="space-right " id="amount-burn" bind:value={amount} placeholder="0" />
-    <Button disabled={loading} on:click={burn}>burn</Button>
+  <form class="flex centered space-top" on:submit|preventDefault={burn}>
+    <input class="space-right " id="amount-burn" type="number" min="0" step="0.01" bind:value={amount} placeholder="0" />
+    <Submit disabled={loading} value="burn" />
     <span class="space-left">or</span>
     <a class="space-left" href="/#" on:click|preventDefault={() => burn({ all: true })}>burn all</a>
-  </div>
+  </form>
   <p class="info x-small space-top">
     <span class="strong">WARNING.</span>
     This amount will be burnt and therefore

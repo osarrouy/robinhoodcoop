@@ -1,14 +1,14 @@
 <script>
-  import Button from '/components/Button'
-  import { Content, Main, Title } from '/sections/admin/index.js'
+  import { Submit }                                         from '/components/index.js'
+  import { Content, Main, Title }                           from '/sections/admin/index.js'
   import { notify, toFormattedDecimals, toFixed, RHC, RHS } from '/lib/index.js'
-  import { onMount } from 'svelte'
+  import { onMount }                                        from 'svelte'
 
-  let coop = RHC.new()
+  let coop    = RHC.new()
   let loading = false
-  let share = RHS.new()
-  let supply = '...'
-  let value = '...'
+  let share   = RHS.new()
+  let supply  = '...'
+  let value   = '...'
   let update
 
   const fetchValueAndSupply = async () => {
@@ -73,9 +73,9 @@
         </td>
       </tr>
     </table>
-    <section class="flex space-top">
-      <input type="number" bind:value={update} placeholder={value} class="space-right" />
-      <Button type="small" disabled={loading} on:click={() => updateValue()}>update value</Button>
-    </section>
+    <form class="flex space-top" on:submit|preventDefault={updateValue}>
+      <input type="number" min="0" step="0.01" bind:value={update} placeholder={value} class="space-right" />
+      <Submit type="small" disabled={loading} value="update value" />
+    </form>
   </Content>
 </Main>

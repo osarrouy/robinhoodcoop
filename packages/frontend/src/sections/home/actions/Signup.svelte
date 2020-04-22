@@ -1,5 +1,5 @@
 <script>
-  import { Animate, Button, Mail } from '/components/index.js'
+  import { Animate, Mail, Submit } from '/components/index.js'
   import { Member }                from '/lib/index.js'
   import { member }                from '/stores/member.js'
 
@@ -41,14 +41,16 @@
     </Animate>
   {:else}
     <Animate>
-      <div class="flex">
-        <input class="space-right" bind:value={firstname} placeholder="firstname" />
-        <input bind:value={lastname} placeholder="lastname" />
-      </div>
-      <div class="flex space-top">
-        <Button disabled={loading} on:click={signup}>signup</Button>
-      </div>
-      <p class="info space-top">{message}</p>
+      <form on:submit|preventDefault={signup}>
+        <div class="flex">
+          <input class="space-right" bind:value={firstname} placeholder="firstname" />
+          <input bind:value={lastname} placeholder="lastname" />
+        </div>
+        <div class="flex space-top">
+          <Submit disabled={loading} value="signup" />
+        </div>
+        <p class="info space-top">{message}</p>
+      </form>
     </Animate>
   {/if}
 </section>
