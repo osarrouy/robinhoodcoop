@@ -28,8 +28,9 @@
     message = 'Check your inbox [including your spam folder].'
 
     try {
-      await Member.authenticate(email)
+      console.log('gonna login')
       await Member.login()
+      console.log('loggedin')
       if (await Member.isMember()) {
         screen.set('dashboard')
       } else {

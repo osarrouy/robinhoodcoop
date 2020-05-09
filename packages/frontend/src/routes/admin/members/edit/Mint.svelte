@@ -5,9 +5,9 @@
   export let member
 
   let amount  = 0
-  let coop    = RHC.new()
+  let coop    = RHC.new({ metamask: true })
   let loading = false
-  let share   = RHS.new()
+  let share   = RHS.new({ metamask: true })
 
   const mint = async () => {
     loading = true

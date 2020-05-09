@@ -8,8 +8,8 @@
   export let router
 
   let address = router.params.address
-  let coop    = RHC.new()
-  let shares  = RHS.new()
+  let coop    = RHC.new({ metamask: true })
+  let shares  = RHS.new({ metamask: true })
   let member  = null
   let unknown = true
 

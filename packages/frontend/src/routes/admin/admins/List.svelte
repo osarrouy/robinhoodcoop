@@ -8,7 +8,7 @@
 
   export let account = ''
 
-  let coop    = RHC.new()
+  let coop    = RHC.new({ metamask: true })
   let loading = true
   let _admins = []
   let admins  = []

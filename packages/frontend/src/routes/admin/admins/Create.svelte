@@ -4,7 +4,7 @@
   import { Content, Links, Main, Title } from '/sections/admin/index.js'
   import { Link, navigateTo }            from 'yrv'
 
-  let coop    = RHC.new()
+  let coop    = RHC.new({ metamask: true })
   let loading = false
   let admin   = ''
   let error   = ''

@@ -4,9 +4,9 @@
   import { notify, toFormattedDecimals, toFixed, RHC, RHS } from '/lib/index.js'
   import { onMount }                                        from 'svelte'
 
-  let coop    = RHC.new()
+  let coop    = RHC.new({ metamask: true })
   let loading = false
-  let share   = RHS.new()
+  let share   = RHS.new({ metamask: true })
   let supply  = '...'
   let value   = '...'
   let update
