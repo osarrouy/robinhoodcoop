@@ -83,7 +83,7 @@
         </tr>
         <tr>
           <td>{supply}</td>
-          <td>shares</td>
+          <td>total coop shares</td>
         </tr>
         <tr>
           <td>{value}</td>
