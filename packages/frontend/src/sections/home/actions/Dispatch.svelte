@@ -34,11 +34,6 @@
       <Button disabled={loading} class="space-right" on:click={login}>login</Button>
       <Button on:click={() => screen.set('signup')}>signup</Button>
     </div>
-    <p class="x-small space-top">
-      or login
-      <Link href="/admin">here</Link>
-      if you are an admin
-    </p>
     <p class="info space-top">{message}</p>
   </div>
 </Animate>
