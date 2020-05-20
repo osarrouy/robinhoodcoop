@@ -78,7 +78,7 @@
     <Animate>
       <table>
         <tr>
-          <td>{members}</td>
+          <td>850</td>
           <td>members</td>
         </tr>
         <tr>
