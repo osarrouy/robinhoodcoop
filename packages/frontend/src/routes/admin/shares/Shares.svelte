@@ -18,7 +18,7 @@
     })
     .subscribe(async result => {
       const date = new Date(result.data.share.timestamp * 1000)
-      timestamp  = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear()
+      timestamp  = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear()
     })
 
   const fetchValueAndSupply = async () => {

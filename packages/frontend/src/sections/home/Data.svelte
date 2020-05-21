@@ -31,7 +31,7 @@
     .subscribe(async result => {
       const date = new Date(result.data.share.timestamp * 1000)
       value      = result.data.share.value
-      timestamp  = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear()
+      timestamp  = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear()
     })
 
   member.subscribe(async _member => {
