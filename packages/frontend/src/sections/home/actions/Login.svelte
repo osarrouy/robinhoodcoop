@@ -35,7 +35,7 @@
         screen.set('dashboard')
       } else {
         Member.logout()
-        message = 'This address is not associated to a Robin Hood member.'
+        message = 'Your account needs to be activated by an admin. RHcoop will send you an email as soon as your account is ready for log in. Keep an eye on your inbox [and spam folder too].'
       }
     } catch (e) {
       message = e.message
