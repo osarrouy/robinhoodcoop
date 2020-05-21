@@ -79,7 +79,7 @@
       <tr>
         <td class="strong">value</td>
         <td>
-          <span>{value} USD / share</span>
+          <span>{value} euro / share</span>
         </td>
       </tr>
     </table>
