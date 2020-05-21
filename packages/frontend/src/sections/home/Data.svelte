@@ -80,7 +80,7 @@
         </tr>
         <tr>
           <td>{value}</td>
-          <td>euro per share</td>
+          <td>EUR per share</td>
         </tr>
         <tr>
           <td>{portfolio}</td>
@@ -102,7 +102,7 @@
         </tr>
         <tr>
           <td>{value}</td>
-          <td>euro per share</td>
+          <td>EUR per share</td>
         </tr>
       </table>
       <p class="date info">last updated on {timestamp}</p>
