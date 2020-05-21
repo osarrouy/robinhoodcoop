@@ -1,15 +1,16 @@
 <script>
-  import { Animate }                                from '/components/index.js'
-  import { graphql, toDecimals, MEMBERS, RHC, RHS } from '/lib/index.js'
-  import { screen }                                 from '/stores/screen.js'
-  import { member }                                 from '/stores/member.js'
-  import BigNumber                                  from 'bignumber.js'
+  import { Animate }                                       from '/components/index.js'
+  import { graphql, toDecimals, MEMBERS, SHARE, RHC, RHS } from '/lib/index.js'
+  import { screen }                                        from '/stores/screen.js'
+  import { member }                                        from '/stores/member.js'
+  import BigNumber                                         from 'bignumber.js'
 
   let members   = '...'
   let portfolio = '...'
   let shares    = '...'
   let supply    = '...'
   let value     = '...'
+  let timestamp = '...'
 
   const coop  = RHC.new()
   const share = RHS.new()
@@ -21,7 +22,16 @@
     .subscribe(async result => {
       supply  = toDecimals(await share.totalSupply())
       members = result.data.members.length
-      value   = toDecimals(await coop.value())
+    })
+
+  graphql
+    .subscribe({
+      query: SHARE,
+    })
+    .subscribe(async result => {
+      const date = new Date(result.data.share.timestamp * 1000)
+      value      = result.data.share.value
+      timestamp  = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear()
     })
 
   member.subscribe(async _member => {
@@ -53,6 +63,10 @@
         }
       }
     }
+
+    p.date {
+      text-align: right;
+    }
   }
 </style>
 
@@ -66,13 +80,14 @@
         </tr>
         <tr>
           <td>{value}</td>
-          <td>USD per share</td>
+          <td>euro per share</td>
         </tr>
         <tr>
           <td>{portfolio}</td>
           <td>$ total</td>
         </tr>
       </table>
+      <p class="date info">values as of {timestamp}</p>
     </Animate>
   {:else}
     <Animate>
@@ -87,9 +102,10 @@
         </tr>
         <tr>
           <td>{value}</td>
-          <td>USD per share</td>
+          <td>euro per share</td>
         </tr>
       </table>
+      <p class="date info">last updated on {timestamp}</p>
     </Animate>
   {/if}
 </section>

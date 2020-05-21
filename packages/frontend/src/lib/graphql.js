@@ -51,6 +51,15 @@ export const ADMINS = gql`
   }
 `
 
+export const SHARE = gql`
+  subscription {
+    share(id: "0") {
+      value
+      timestamp
+    }
+  }
+`
+
 export const GRAPH_ENDPOINT = 'wss://api.thegraph.com/subgraphs/name/osarrouy/robinhoodcoop'
 
 const link = new WebSocketLink({
