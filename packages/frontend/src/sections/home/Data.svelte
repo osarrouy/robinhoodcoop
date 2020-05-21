@@ -84,7 +84,7 @@
         </tr>
         <tr>
           <td>{portfolio}</td>
-          <td>$ total</td>
+          <td>€ total</td>
         </tr>
       </table>
       <p class="date info">values as of {timestamp}</p>
