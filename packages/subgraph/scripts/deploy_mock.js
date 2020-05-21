@@ -36,6 +36,9 @@ module.exports = async cb => {
     // transfer shares
     await coop.unpause()
     await share.transfer(member_3, toWei(150), { from: member_1 })
+    // update value
+    await coop.updateValue(toWei('15'))
+    await coop.updateValue(toWei('17'))
     // update subgraph.yaml //
     const file = fs.readFileSync('./subgraph.yaml', 'utf8')
     const data = yaml.safeLoad(file)
@@ -54,6 +57,9 @@ module.exports = async cb => {
     console.log('Members')
     console.log(member_1 + ' | ' + toDecimals(await share.balanceOf(member_1)))
     console.log(member_3 + ' | ' + toDecimals(await share.balanceOf(member_3)))
+    console.log('=======================')
+    console.log('Value')
+    console.log(toDecimals(await coop.value()).toString())
   } catch (e) {
     console.log(e)
   }

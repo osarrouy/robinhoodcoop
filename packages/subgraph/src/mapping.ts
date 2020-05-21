@@ -1,8 +1,8 @@
-import { Bytes, store }                      from '@graphprotocol/graph-ts'
-import { Transfer }                          from '../generated/RobinHoodShare/RobinHoodShare'
-import { GrantedAdmin, RevokedAdmin }        from '../generated/RobinHoodCoop/RobinHoodCoop'
-import { Admin, Member }                     from '../generated/schema'
-import { GENESIS_ADDRESS, ZERO, toDecimals } from './helpers'
+import { Bytes, store }                             from '@graphprotocol/graph-ts'
+import { Transfer }                                 from '../generated/RobinHoodShare/RobinHoodShare'
+import { GrantedAdmin, RevokedAdmin, UpdatedValue } from '../generated/RobinHoodCoop/RobinHoodCoop'
+import { Admin, Member, Share }                     from '../generated/schema'
+import { GENESIS_ADDRESS, ZERO, toDecimals }        from './helpers'
 
 function _member(address: Bytes): Member {
   let id     = address.toHexString()
@@ -29,6 +29,16 @@ function _admin(address: Bytes): Admin {
   return admin as Admin
 }
 
+function _share(): Share {
+  let share = Share.load('0')
+
+  if (share == null) {
+    share = new Share('0')
+  }
+
+  return share as Share
+}
+
 export function handleGrantedAdmin(event: GrantedAdmin): void {
   let admin = _admin(event.params.admin)
 
@@ -37,6 +47,15 @@ export function handleGrantedAdmin(event: GrantedAdmin): void {
 
 export function handleRevokedAdmin(event: RevokedAdmin): void {
   store.remove('Admin', event.params.admin.toHex())
+}
+
+export function handleUpdatedValue(event: UpdatedValue): void {
+  let share = _share();
+
+  share.value     = toDecimals(event.params.value)
+  share.timestamp = event.block.timestamp
+
+  share.save();
 }
 
 export function handleTransfer(event: Transfer): void {

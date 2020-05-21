@@ -25,8 +25,6 @@ dataSources:
           handler: handleGrantedAdmin
         - event: RevokedAdmin(indexed address)
           handler: handleRevokedAdmin
-        - event: UpdatedValue(uint256)
-          handler: handleUpdatedValue
       file: ./src/mapping.ts
   - kind: ethereum/contract
     name: RobinHoodShare

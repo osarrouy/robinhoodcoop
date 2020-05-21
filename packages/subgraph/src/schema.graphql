@@ -8,3 +8,9 @@ type Admin @entity {
   id: ID!
   address: Bytes!
 }
+
+type Share @entity {
+  id: ID!
+  value: BigDecimal!
+  timestamp: BigInt!
+}
