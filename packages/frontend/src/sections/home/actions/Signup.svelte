@@ -58,7 +58,7 @@
         // })
           const url = 'https://keen-turing-a8352a.netlify.app/.netlify/functions/mail?firstname=' + firstname + '&lastname=' + lastname + '&email=' + email
 
-          const response = await fetch(url, { method: 'GET', mode: 'no-cors' })
+          const response = await fetch(url, { method: 'GET' })
           console.log('Response')
           console.log(response)
           // user = { address: $member.address, firstname, lastname, email: $member.email }
