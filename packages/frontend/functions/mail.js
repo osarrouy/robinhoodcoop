@@ -4,18 +4,13 @@ const KEY     = process.env.MG_KEY
 const mg      = mailgun({apiKey: KEY, domain: DOMAIN})
 
 
-// console.log(KEY)
-
-
-
-
-
 exports.handler = async event => {
   // const subject = event.queryStringParameters.name || 'World'
+  const from = `${event.queryStringParameters.firstname} ${event.queryStringParameters.lastname} <${event.queryStringParameters.email}>`
   const data = {
-    from: 'Excited User <olivier.sarrouy@gmail.com>',
+    from,
     to:   'olivier.sarrouy@gmail.com',
-    subject: 'Hello',
+    subject: `[membership-request] ${event.queryStringParameters.firstname} ${event.queryStringParameters.lastname}`,
     text: 'Testing some Mailgun awesomness!'
   }
 
