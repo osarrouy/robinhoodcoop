@@ -15,24 +15,16 @@ exports.handler = async event => {
   //   text: 'Testing some Mailgun awesomness!'
   // }
 
-  const from = event.queryStringParameters.firstname + ' ' + event.queryStringParameters.lastname + ' <olivier.sarrouy@gmail.com>'
+  const from = event.queryStringParameters.firstname + ' ' + event.queryStringParameters.lastname + ' <' + event.queryStringParameters.email + '>'
 
   const data = {
     from: from,
     to:   'olivier.sarrouy@gmail.com',
-    subject: 'Hello',
+    subject: '[membership-request] ' + event.queryStringParameters.firstname + ' ' + event.queryStringParameters.lastname,
     text: 'Testing some Mailgun awesomness!'
   }
 
   mg.messages().send(data, function (error, body) {
-
-
-
-    console.log('body')
-    console.log(body)
-    console.log('error')
-    console.log(error)
-
     if (error) {
       return {
         statusCode: 500,
@@ -44,7 +36,6 @@ exports.handler = async event => {
         body,
       }
     }
-
   })
 
 
