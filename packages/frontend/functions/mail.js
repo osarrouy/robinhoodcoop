@@ -15,8 +15,10 @@ exports.handler = async event => {
   //   text: 'Testing some Mailgun awesomness!'
   // }
 
+  const from = event.queryStringParameters.firstname + ' ' + event.queryStringParameters.lastname + ' <olivier.sarrouy@gmail.com>'
+
   const data = {
-    from: 'Excited User <olivier.sarrouy@gmail.com>',
+    from: from,
     to:   'olivier.sarrouy@gmail.com',
     subject: 'Hello',
     text: 'Testing some Mailgun awesomness!'
