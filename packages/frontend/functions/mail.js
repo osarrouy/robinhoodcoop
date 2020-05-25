@@ -36,7 +36,7 @@ exports.handler = async event => {
     } else {
       return {
         statusCode: 200,
-        body: 'email sen t',
+        body,
       }
     }
 
