@@ -6,11 +6,19 @@ const mg      = mailgun({apiKey: KEY, domain: DOMAIN})
 
 exports.handler = async event => {
   // const subject = event.queryStringParameters.name || 'World'
-  const from = `${event.queryStringParameters.firstname} ${event.queryStringParameters.lastname} <${event.queryStringParameters.email}>`
+
+  // const from = `${event.queryStringParameters.firstname} ${event.queryStringParameters.lastname} <${event.queryStringParameters.email}>`
+  // const data = {
+  //   from,
+  //   to:   'olivier.sarrouy@gmail.com',
+  //   subject: `[membership-request] ${event.queryStringParameters.firstname} ${event.queryStringParameters.lastname}`,
+  //   text: 'Testing some Mailgun awesomness!'
+  // }
+
   const data = {
-    from,
+    from: 'Excited User <olivier.sarrouy@gmail.com>',
     to:   'olivier.sarrouy@gmail.com',
-    subject: `[membership-request] ${event.queryStringParameters.firstname} ${event.queryStringParameters.lastname}`,
+    subject: 'Hello',
     text: 'Testing some Mailgun awesomness!'
   }
 
