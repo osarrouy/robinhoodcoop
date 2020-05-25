@@ -5,6 +5,7 @@ import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
 import rootImport from 'rollup-plugin-root-import'
 import auto from 'svelte-preprocess'
+const {markdown} = require('svelte-preprocess-markdown')
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -24,22 +25,26 @@ export default {
     }),
     svelte({
       dev: !production,
-      preprocess: auto({
-        scss: {
-          includePaths: ['src/styles'],
-          data: `@import 'src/styles/variables.scss';@import 'src/styles/mixins.scss';`,
-        },
-        postcss: {
-          plugins: [require('autoprefixer')],
-        },
-      }),
+      extensions: ['.svelte','.md'],
+      preprocess: [
+        auto({
+          scss: {
+            includePaths: ['src/styles'],
+            data: `@import 'src/styles/variables.scss';@import 'src/styles/mixins.scss';`,
+          },
+          postcss: {
+            plugins: [require('autoprefixer')],
+          },
+        }),
+        markdown()
+    ],
       css: css => {
         css.write('public/build/bundle.css')
       },
     }),
     resolve({
       browser: true,
-      dedupe: ['svelte'],
+      dedupe: ['svelte', 'svelte/transition', 'svelte/internal'],
     }),
     commonjs(),
     !production && serve(),

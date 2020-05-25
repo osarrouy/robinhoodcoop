@@ -10,6 +10,7 @@
   import { onMount } from 'svelte'
   import Notifications from 'svelte-notifications'
   import { Router, Route } from 'yrv'
+  import Modal from 'svelte-simple-modal';
 
   let metamask = false
   let network = null
@@ -53,6 +54,7 @@
 </style>
 
 <Notifications>
+  <Modal>
   <Router let:router>
     <Route exact component={Home} />
     {#if isAdmin}
@@ -94,4 +96,5 @@
     {/if}
     <Route fallback component={NotFound} />
   </Router>
+  </Modal>
 </Notifications>

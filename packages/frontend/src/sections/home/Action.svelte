@@ -6,6 +6,7 @@
 <style type="text/scss">
   section.action {
     grid-area: action;
+    overflow: scroll;
   }
 </style>
 
