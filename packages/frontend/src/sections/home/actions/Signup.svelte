@@ -93,7 +93,7 @@
       <p class="x-small space-top">Once you click on 'signup' a Fortmatic window will pop up. This Formatic account will identify you on this platform.</p>
       <form class="space-top" on:submit|preventDefault={signup}>
         <div class="flex"><input bind:value={email} placeholder="me@mail.com" /></div>
-        <div class="flex space-top"><input class="space-top" bind:value={address} placeholder="1 Rue des Dames, 75001 Paris, France" /></div>
+        <div class="flex space-top"><input bind:value={address} placeholder="1 Rue des Dames, 75001 Paris, France" /></div>
         <div class="flex space-top">
           <input class="space-right" bind:value={firstname} placeholder="firstname" />
           <input bind:value={lastname} placeholder="lastname" />
