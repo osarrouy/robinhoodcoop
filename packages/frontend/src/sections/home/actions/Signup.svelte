@@ -18,7 +18,7 @@
 
 
   const TEMPLATE_ID = 'template_5hkdMlok'
-  const SERVICE_ID  = 'robinhoodcoop'
+  const SERVICE_ID  = 'robinhoodsmtp'
   const { open }    = getContext('simple-modal')
   emailjs.init('user_jzjfr1GQsGlkjbK6QZpqg')
 
@@ -54,7 +54,6 @@
         if (await Member.isMember()) {
           message = 'You are already signed up with this address. Go back and login.'
         } else {
-          console.log($member)
           await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
             name: firstname + ' ' + lastname,
             email: email,
