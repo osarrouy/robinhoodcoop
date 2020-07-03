@@ -7,6 +7,7 @@
   import emailjs                   from 'emailjs-com'
 
   let email     = ''
+  let phone     = ''
   let address   = ''
   let firstname = ''
   let lastname  = ''
@@ -22,7 +23,19 @@
   const { open }    = getContext('simple-modal')
   emailjs.init('user_jzjfr1GQsGlkjbK6QZpqg')
 
-  const validate = () => {
+
+  const phoneFormat = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+
+  const validate = () => {   
+    if (!email || email.length < 1) {
+      message += '\nplease provide a valid email'
+    }
+
+    if (!phoneFormat.test(phone)) {
+      console.log('foire')
+      message += '\nplease provide a valid phone number'
+    }
+
     if (!firstname || firstname.length < 1) {
       message += '\nplease provide your firstname'
     }
@@ -56,6 +69,7 @@
         } else {
           await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
             name: firstname + ' ' + lastname,
+            phone: phone,
             email: email,
             address: address,
             ethereum: $member.address
@@ -92,6 +106,7 @@
       <p class="x-small space-top">Once you click on 'signup' a Fortmatic window will pop up. This Formatic account will identify you on this platform.</p>
       <form class="space-top" on:submit|preventDefault={signup}>
         <div class="flex"><input bind:value={email} placeholder="me@mail.com" /></div>
+        <div class="flex space-top"><input bind:value={phone} placeholder="phone number" /></div>
         <div class="flex space-top"><input bind:value={address} placeholder="1 Rue des Dames, 75001 Paris, France" /></div>
         <div class="flex space-top">
           <input class="space-right" bind:value={firstname} placeholder="firstname" />
