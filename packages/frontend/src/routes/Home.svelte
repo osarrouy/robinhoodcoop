@@ -18,6 +18,22 @@
       grid-row-gap: $spacing;
       min-height: calc(100vh - #{2 * $spacing});
     }
+
+    @media screen and (max-width: 980px) { 
+      main {
+      align-content: start;  
+      justify-content: center;  
+      grid-template-rows: auto auto auto auto;
+      grid-template-columns: 100%;
+      grid-template-areas:
+        'nav'
+        'title'
+        'action'
+        'data';
+      grid-column-gap: 10%;
+      grid-row-gap: $spacing;
+      } 
+    } 
   }
 </style>
 

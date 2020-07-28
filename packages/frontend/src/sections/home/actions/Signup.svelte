@@ -110,6 +110,9 @@
         <div class="flex space-top"><input bind:value={address} placeholder="1 Rue des Dames, 75001 Paris, France" /></div>
         <div class="flex space-top">
           <input class="space-right" bind:value={firstname} placeholder="firstname" />
+          <!-- <input bind:value={lastname} placeholder="lastname" /> -->
+        </div>
+        <div class="flex space-top">
           <input bind:value={lastname} placeholder="lastname" />
         </div>
         <div class="flex space-top">

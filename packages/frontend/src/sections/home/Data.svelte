@@ -11,9 +11,19 @@
   let supply    = '...'
   let value     = '...'
   let timestamp = '...'
+  let isSmall = false
 
   const coop  = RHC.new()
   const share = RHS.new()
+
+  const updateIsSmall = () => {
+    isSmall = window.matchMedia('(max-width: 980px)').matches;
+    console.log(isSmall)
+  }
+
+  updateIsSmall()
+
+  window.matchMedia('(max-width: 980px)').addListener(updateIsSmall);
 
   graphql
     .subscribe({
@@ -68,6 +78,13 @@
       text-align: right;
     }
   }
+
+  @media screen and (max-width: 980px) {
+    section.data {
+      align-self: center;
+      justify-self: center;
+    }
+  }
 </style>
 
 <section class="data">
@@ -89,7 +106,25 @@
       </table>
       <p class="date info">values as of {timestamp}</p>
     </Animate>
-  {:else}
+  {:else if $screen === 'signup' && !isSmall}
+    <Animate>
+      <table>
+        <tr>
+          <td>850</td>
+          <td>members</td>
+        </tr>
+        <tr>
+          <td>{supply}</td>
+          <td>total coop shares</td>
+        </tr>
+        <tr>
+          <td>{value}</td>
+          <td>EUR per share</td>
+        </tr>
+      </table>
+      <p class="date info">last updated on {timestamp}</p>
+    </Animate>
+  {:else if $screen !== 'signup'}
     <Animate>
       <table>
         <tr>

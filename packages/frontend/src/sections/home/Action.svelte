@@ -8,6 +8,14 @@
     grid-area: action;
     overflow: scroll;
   }
+
+  @media screen and (max-width: 980px) {
+    section.action {
+      // margin-top: 2 * $spacing;
+      align-self: center;
+      justify-self: center;
+    }
+  }
 </style>
 
 <section class="action">

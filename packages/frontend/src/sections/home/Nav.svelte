@@ -15,6 +15,13 @@
     align-self: end;
     grid-area: nav;
   }
+
+  @media screen and (max-width: 980px) {
+    section.nav {
+      align-self: center;
+      justify-self: start;
+    }
+  }
 </style>
 
 <section class="nav x-small">

@@ -13,6 +13,13 @@
       @include title;
     }
   }
+
+  @media screen and (max-width: 980px) {
+    section.title {
+      align-self: center;
+      justify-self: center;
+    }
+  }
 </style>
 
 <section class="title">

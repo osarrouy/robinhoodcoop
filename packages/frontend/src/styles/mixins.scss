@@ -11,6 +11,10 @@
   line-height: 1em;
   text-shadow: 0 0 7px #fff;
   text-transform: uppercase;
+
+  @media screen and (max-width: 1150px) { 
+    font-size: 2rem;
+  } 
 }
 
 @mixin x-small {
