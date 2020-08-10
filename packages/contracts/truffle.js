@@ -24,6 +24,7 @@ module.exports = {
     mainnet: {
       host: '127.0.0.1',
       port: 1248,
+      gasPrice: 90e9,
       network_id: 1,
     },
   },
