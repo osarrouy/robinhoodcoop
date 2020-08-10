@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.3
 description: RobinHoodCoop
 repository: 'https://github.com/osarrouy/robinhoodcoop'
 schema:
@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: RobinHoodCoop
-    network: kovan
+    network: mainnet
     source:
-      address: '0xdA08FcdD705750A6738445a6E9c2D76dAE6d8576'
+      address: '0x1030e7bb1fB3a9EEE118C5cca4EBAfDAA3d350D1'
       abi: RobinHoodCoop
-      startBlock: 18062977
+      startBlock: 10631190
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.3
@@ -30,11 +30,11 @@ dataSources:
       file: ./src/mapping.ts
   - kind: ethereum/contract
     name: RobinHoodShare
-    network: kovan
+    network: mainnet
     source:
-      address: '0x0dc3B1B84Ca64d06cD453C2257fa86714C024574'
+      address: '0xaB9382C0aD4BD6c4Efd578f54b0DA1804F766e60'
       abi: RobinHoodShare
-      startBlock: 18062977
+      startBlock: 10631190
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.3
