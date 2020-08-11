@@ -19,7 +19,7 @@
   let coop = RHC.new()
 
   $: {
-    if (!metamask || network !== '42') {
+    if (!metamask || network !== '1') {
       isAdmin = false
     } else {
       coop.isAdmin(account).then(_isAdmin => {

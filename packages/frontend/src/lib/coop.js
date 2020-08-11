@@ -1,7 +1,7 @@
 import ABI    from '/lib/RobinHoodCoop.js'
 import ethers from 'ethers'
 
-const ADDRESS = '0xdA08FcdD705750A6738445a6E9c2D76dAE6d8576'
+const ADDRESS = '0x1030e7bb1fB3a9EEE118C5cca4EBAfDAA3d350D1'
 
 export const RHC = {
   new: (opts = { metamask: false }) => {
@@ -10,7 +10,7 @@ export const RHC = {
       const coop     = new ethers.Contract(ADDRESS, ABI, provider.getSigner())
       return coop
     } else {
-      const provider = ethers.getDefaultProvider('kovan')
+      const provider = ethers.getDefaultProvider('mainnet')
       const coop     = new ethers.Contract(ADDRESS, ABI, provider)
       return coop
     }

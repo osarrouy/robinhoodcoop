@@ -1,7 +1,7 @@
 import ABI    from '/lib/RobinHoodShare.js'
 import ethers from 'ethers'
 
-const ADDRESS = '0x0dc3B1B84Ca64d06cD453C2257fa86714C024574'
+const ADDRESS = '0xaB9382C0aD4BD6c4Efd578f54b0DA1804F766e60'
 
 export const RHS = {
   new: (opts = { metamask: false }) => {
@@ -10,7 +10,7 @@ export const RHS = {
       const share    = new ethers.Contract(ADDRESS, ABI, provider.getSigner())
       return share
     } else {
-      const provider = ethers.getDefaultProvider('kovan')
+      const provider = ethers.getDefaultProvider('mainnet')
       const share    = new ethers.Contract(ADDRESS, ABI, provider)
       return share
     }
