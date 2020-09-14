@@ -107,7 +107,7 @@
       <form class="space-top" on:submit|preventDefault={signup}>
         <div class="flex"><input bind:value={email} placeholder="me@mail.com" /></div>
         <div class="flex space-top"><input bind:value={phone} placeholder="phone number" /></div>
-        <div class="flex space-top"><input bind:value={address} placeholder="1 Rue des Dames, 75001 Paris, France" /></div>
+        <div class="flex space-top"><input bind:value={address} placeholder="street address, city, post code, country" /></div>
         <div class="flex space-top">
           <input class="space-right" bind:value={firstname} placeholder="firstname" />
           <!-- <input bind:value={lastname} placeholder="lastname" /> -->

@@ -18,7 +18,7 @@
         screen.set('dashboard')
       } else {
         Member.logout()
-        message = "Your account needs to be activated by an admin.\nRHcoop will send you an email as soon as your account is ready for log in.\nKeep an eye on your inbox [and spam folder too]."
+        message = "This account is not registered as a new RHCoop member. Please sign up to your new account if you haven’t yet [even if you already are a RHCoop Member].\nIf you have already signed up, your account now needs to be activated by an admin.\nRHcoop will send you an email as soon as your account is ready for log in.\nKeep an eye on your inbox [and spam folder too]."
       }
     } catch (err) {
       message = err.message
