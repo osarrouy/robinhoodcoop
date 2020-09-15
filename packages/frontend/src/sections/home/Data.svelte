@@ -104,43 +104,62 @@
           <td>€ total</td>
         </tr>
       </table>
-      <p class="date info">values as of {timestamp}</p>
-    </Animate>
+      <!--p class="date info">values as of {timestamp}</p-->
+      <p class="date info">values as of 30/06/2020</p>
+  </Animate>
   {:else if $screen === 'signup' && !isSmall}
     <Animate>
       <table>
         <tr>
-          <td>850</td>
+          <td>840</td>
           <td>members</td>
         </tr>
         <tr>
-          <td>{supply}</td>
+          <td>{members}/td>
+          <td>members on blockchain</td>
+        </tr>
+        <tr>
+          <td>19495</td>
           <td>total coop shares</td>
+        </tr>
+        <tr>
+          <td>{supply}</td>
+          <td>total shares on blockchain</td>
         </tr>
         <tr>
           <td>{value}</td>
           <td>EUR per share</td>
         </tr>
       </table>
-      <p class="date info">last updated on {timestamp}</p>
-    </Animate>
+      <!--p class="date info">last updated on {timestamp}</p -->
+      <p class="date info">last updated on 30/06/2020</p>
+  </Animate>
   {:else if $screen !== 'signup'}
     <Animate>
       <table>
         <tr>
-          <td>850</td>
+          <td>840</td>
           <td>members</td>
         </tr>
         <tr>
-          <td>{supply}</td>
+          <td>{members}/td>
+          <td>members on blockchain</td>
+        </tr>
+        <tr>
+          <td>19495</td>
           <td>total coop shares</td>
+        </tr>
+        <tr>
+          <td>{supply}</td>
+          <td>total shares on blockchain</td>
         </tr>
         <tr>
           <td>{value}</td>
           <td>EUR per share</td>
         </tr>
       </table>
-      <p class="date info">last updated on {timestamp}</p>
+      <!--p class="date info">last updated on {timestamp}</p -->
+      <p class="date info">last updated on 30/06/2020</p>
     </Animate>
   {/if}
 </section>
