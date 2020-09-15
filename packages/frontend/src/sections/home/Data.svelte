@@ -114,13 +114,13 @@
           <td>840</td>
           <td>members</td>
         </tr>
-        <tr>
+        <!--tr>
           <td>{members}/td>
           <td>members on blockchain</td>
-        </tr>
+        </tr-->
         <tr>
           <td>19495</td>
-          <td>total coop shares</td>
+          <td>total shares</td>
         </tr>
         <tr>
           <td>{supply}</td>
@@ -141,13 +141,13 @@
           <td>840</td>
           <td>members</td>
         </tr>
-        <tr>
-          <td>{members}/td>
+        <!--tr>
+          <td>{members}</td>
           <td>members on blockchain</td>
-        </tr>
+        </tr-->
         <tr>
           <td>19495</td>
-          <td>total coop shares</td>
+          <td>total shares</td>
         </tr>
         <tr>
           <td>{supply}</td>
