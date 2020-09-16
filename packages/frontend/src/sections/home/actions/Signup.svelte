@@ -32,7 +32,6 @@
     }
 
     if (!phoneFormat.test(phone)) {
-      console.log('foire')
       message += '\nplease provide a valid phone number'
     }
 
@@ -107,7 +106,7 @@
       <form class="space-top" on:submit|preventDefault={signup}>
         <div class="flex"><input bind:value={email} placeholder="me@mail.com" /></div>
         <div class="flex space-top"><input bind:value={phone} placeholder="phone: +33xxxxxx" /></div>
-        <div class="flex space-top"><input bind:value={address} placeholder="full address: street, city, code, country" /></div>
+        <div class="flex space-top"><input size="50"  bind:value={address} placeholder="full address: street, city, code, country" /></div>
         <div class="flex space-top">
           <input class="space-right" bind:value={firstname} placeholder="firstname" />
           <!-- <input bind:value={lastname} placeholder="lastname" /> -->
