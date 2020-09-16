@@ -24,7 +24,7 @@
   emailjs.init('user_jzjfr1GQsGlkjbK6QZpqg')
 
 
-  const phoneFormat = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+  const phoneFormat = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,9}$/im;
 
   const validate = () => {   
     if (!email || email.length < 1) {
