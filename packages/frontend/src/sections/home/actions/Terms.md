@@ -1,3 +1,9 @@
+<style>
+  * {
+    color: black;
+  }
+</style>
+
 # Terms of Application and Website Use
 
 
