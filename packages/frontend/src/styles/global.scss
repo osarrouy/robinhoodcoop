@@ -238,7 +238,7 @@ table.list td:last-of-type {
   color: #ffaaaa;
   min-height: 1.3em;
   line-height: 1.3em;
-  white-space: pre-wrap; 
+  white-space: pre-wrap;
 }
 
 .small {
@@ -310,4 +310,10 @@ table.list td:last-of-type {
 
 .notification-button {
   border-radius: 0;
+}
+
+.content {
+  * {
+    color: black;
+  }
 }
