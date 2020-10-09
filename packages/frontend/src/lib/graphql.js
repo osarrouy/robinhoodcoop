@@ -1,6 +1,6 @@
-import { InMemoryCache }     from 'apollo-cache-inmemory'
-import { ApolloClient, gql } from 'apollo-boost'
-import { WebSocketLink }     from 'apollo-link-ws'
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient, gql } from 'apollo-boost';
+import { WebSocketLink } from 'apollo-link-ws';
 
 export const ALL_MEMBERS = gql`
   subscription {
@@ -12,17 +12,17 @@ export const ALL_MEMBERS = gql`
       email
     }
   }
-`
+`;
 
 export const MEMBERS = gql`
   subscription {
-    members(orderDirection: asc) {
+    members(first: 1000, orderDirection: asc) {
       id
       address
       shares
     }
   }
-`
+`;
 
 export const SEARCH_MEMBERS = gql`
   subscription members($where: Member_filter!) {
@@ -31,7 +31,7 @@ export const SEARCH_MEMBERS = gql`
       shares
     }
   }
-`
+`;
 
 export const MEMBER = gql`
   subscription member($id: String) {
@@ -40,7 +40,7 @@ export const MEMBER = gql`
       shares
     }
   }
-`
+`;
 
 export const ADMINS = gql`
   subscription {
@@ -49,7 +49,7 @@ export const ADMINS = gql`
       address
     }
   }
-`
+`;
 
 export const SHARE = gql`
   subscription {
@@ -58,16 +58,16 @@ export const SHARE = gql`
       timestamp
     }
   }
-`
+`;
 
-export const GRAPH_ENDPOINT = 'wss://api.thegraph.com/subgraphs/name/osarrouy/robinhoodcoop'
+export const GRAPH_ENDPOINT = 'wss://api.thegraph.com/subgraphs/name/osarrouy/robinhoodcoop';
 
 const link = new WebSocketLink({
   uri: GRAPH_ENDPOINT,
   options: {
     reconnect: true,
   },
-})
-const cache = new InMemoryCache()
+});
+const cache = new InMemoryCache();
 
-export const graphql = new ApolloClient({ link, cache })
+export const graphql = new ApolloClient({ link, cache });
