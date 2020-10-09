@@ -1,13 +1,13 @@
-export const isValidString = string => {
+export const isValidString = (string) => {
   if (string && string.length > 0) {
-    return true
+    return true;
   }
-  return false
-}
+  return false;
+};
 
-export const isValidEmail = email => {
-  if (email && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-    return true
+export const isValidEmail = (email) => {
+  if (email && /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+    return true;
   }
-  return false
-}
+  return false;
+};

@@ -1,6 +1,6 @@
 <script>
   import { Animate, Mail, Submit } from '/components/index.js'
-  import { Member }                from '/lib/index.js'
+  import { Member, isValidEmail }                from '/lib/index.js'
   import { member }                from '/stores/member.js'
   import { getContext }            from 'svelte'
   import Terms                     from './Terms.md'
@@ -27,7 +27,7 @@
   const phoneFormat = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,9}$/im;
 
   const validate = () => {   
-    if (!email || email.length < 1) {
+    if (!isValidEmail(email)) {
       message += '\nplease provide a valid email'
     }
 
