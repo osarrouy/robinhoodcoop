@@ -76,7 +76,7 @@ label {
   font-size: 0.9rem;
 }
 
-input {
+input, textarea {
   background: rgba(255, 255, 255, 0.2);
   border: none;
   border-radius: 4px;
@@ -85,7 +85,7 @@ input {
   padding: 1.1em 0.5em;
 }
 
-input:focus {
+input:focus, textarea:focus {
   outline-width: none;
   outline: none;
 }

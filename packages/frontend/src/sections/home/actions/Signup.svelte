@@ -87,6 +87,24 @@
   }
 </script>
 
+<style>
+  form {
+    width: fit-content;
+  }
+  .terms {
+    justify-content: flex-start;
+  }
+  input, textarea {
+    width: 100%;
+  }
+  input[type="checkbox"] {
+    width: auto;
+  }
+  textarea {
+    min-height: 150px;
+  }
+</style>
+
 <section class="flex column">
   {#if confirmed}
     <Animate>
@@ -106,15 +124,18 @@
       <form class="space-top" on:submit|preventDefault={signup}>
         <div class="flex"><input bind:value={email} placeholder="me@mail.com" /></div>
         <div class="flex space-top"><input bind:value={phone} placeholder="phone: +33xxxxxx" /></div>
-        <div class="flex space-top"><input size="50"  bind:value={address} placeholder="full address: street, city, code, country" /></div>
+        <div class="flex space-top"><textarea bind:value={address} rows="10"
+          placeholder="full address
+street
+city code
+country" /></div>
         <div class="flex space-top">
-          <input class="space-right" bind:value={firstname} placeholder="firstname" />
-          <!-- <input bind:value={lastname} placeholder="lastname" /> -->
+          <input bind:value={firstname} placeholder="firstname" />
         </div>
         <div class="flex space-top">
           <input bind:value={lastname} placeholder="lastname" />
         </div>
-        <div class="flex space-top">
+        <div class="flex terms space-top">
           <input class="space-right" type="checkbox"  bind:checked={checked} />
           <p class="info">I agree with the <a href="/#" on:click|preventDefault={showTerms}>terms and conditions</a>.</p>
         </div>
