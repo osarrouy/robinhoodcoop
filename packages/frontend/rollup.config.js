@@ -24,7 +24,8 @@ export default {
       extensions: ['.js', '.svelte', '.scss'],
     }),
     svelte({
-      dev: !production,
+      // dev: !production,
+      dev: true,
       extensions: ['.svelte','.md'],
       preprocess: [
         auto({
