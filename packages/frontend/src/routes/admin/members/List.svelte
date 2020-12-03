@@ -11,7 +11,7 @@
   let search   = ''
 
   $: {
-    members = _members.filter(member =>  member.address.startsWith(search))
+    members = _members.filter(member =>  member.address.toLowerCase().startsWith(search.toLowerCase()))
   }
 
   observe(graphql.subscribe({ query: MEMBERS })).subscribe(async members => {
