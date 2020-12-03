@@ -1,8 +1,9 @@
 <script>
   import { Form, Input, Submit }             from '/components/index.js'
-  import { notify, isAddress, RHC, toFixed } from '/lib/index'
+  import { getNotify, isAddress, RHC, toFixed } from '/lib/index'
   import { Content, Links, Main, Title }     from '/sections/admin/index.js'
   import { Link, navigateTo }                from 'yrv'
+  import { getNotificationsContext }         from 'svelte-notifications'
   import emailjs                             from 'emailjs-com'
 
   let coop    = RHC.new({ metamask: true })
@@ -10,6 +11,8 @@
   let member  = { address: '', email: '', shares: 0 }
   let errors  = { address: '', email: '', shares: '' }
 
+  const { addNotification, clearNotifications } = getNotificationsContext()
+  const notify = getNotify(addNotification, clearNotifications)
   const TEMPLATE_ID = 'membership_confirmation'
   const SERVICE_ID  = 'robinhoodsmtp'
   emailjs.init('user_jzjfr1GQsGlkjbK6QZpqg')

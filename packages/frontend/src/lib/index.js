@@ -1,6 +1,6 @@
 export { RHC } from './coop.js'
 export { RHS } from './share.js'
-export { notify } from './notifications.js'
+export { notify, getNotify } from './notifications.js'
 export { toDecimals, toFormattedDecimals, toFixed } from './numbers.js'
 export { graphql, MEMBER, MEMBERS, ALL_MEMBERS, SHARE, SEARCH_MEMBERS } from './graphql.js'
 export { isValidString, isValidEmail } from './validations.js'

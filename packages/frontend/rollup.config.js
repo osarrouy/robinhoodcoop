@@ -25,7 +25,7 @@ export default {
     }),
     svelte({
       // dev: !production,
-      dev: true,
+      dev: !production,
       extensions: ['.svelte','.md'],
       preprocess: [
         auto({
@@ -50,7 +50,7 @@ export default {
     commonjs(),
     !production && serve(),
     !production && livereload('public'),
-    // production && terser(),
+    production && terser(),
   ],
   watch: {
     clearScreen: false,
