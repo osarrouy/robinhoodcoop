@@ -1,7 +1,8 @@
 <script>
-  import { Submit }                                from '/components/index.js'
-  import { notify, toDecimals, toFixed, RHC, RHS } from '/lib/index.js'
-  import { Link, navigateTo }                      from 'yrv'
+  import { Submit }                                   from '/components/index.js'
+  import { getNotify, toDecimals, toFixed, RHC, RHS } from '/lib/index.js'
+  import { getNotificationsContext }                  from 'svelte-notifications'
+  import { Link, navigateTo }                         from 'yrv'
 
   export let member
 
@@ -10,6 +11,9 @@
   let loading = false
   let share   = RHS.new({ metamask: true })
   let top     = 0
+
+  const { addNotification, clearNotifications } = getNotificationsContext()
+  const notify = getNotify(addNotification, clearNotifications)
   
   $: {
     if (member) {

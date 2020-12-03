@@ -1,13 +1,17 @@
 <script>
   import { Form, Input, Submit }         from '/components/index.js'
-  import { notify, isAddress, RHC }      from '/lib/index'
+  import { getNotify, isAddress, RHC }   from '/lib/index'
   import { Content, Links, Main, Title } from '/sections/admin/index.js'
+  import { getNotificationsContext }     from 'svelte-notifications'
   import { Link, navigateTo }            from 'yrv'
 
   let coop    = RHC.new({ metamask: true })
   let loading = false
   let admin   = ''
   let error   = ''
+
+  const { addNotification, clearNotifications } = getNotificationsContext()
+  const notify = getNotify(addNotification, clearNotifications)
 
   const validate = async () => {
     if (isAddress(admin)) {

@@ -1,6 +1,7 @@
 <script>
-  import { Submit }                                from '/components/index.js'
-  import { notify, toDecimals, toFixed, RHC, RHS } from '/lib/index.js'
+  import { Submit }                                   from '/components/index.js'
+  import { getNotify, toDecimals, toFixed, RHC, RHS } from '/lib/index.js'
+  import { getNotificationsContext }                  from 'svelte-notifications'
 
   export let member
 
@@ -8,6 +9,9 @@
   let coop    = RHC.new({ metamask: true })
   let loading = false
   let share   = RHS.new({ metamask: true })
+
+  const { addNotification, clearNotifications } = getNotificationsContext()
+  const notify = getNotify(addNotification, clearNotifications)
 
   const mint = async () => {
     loading = true

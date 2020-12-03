@@ -1,8 +1,10 @@
 <script>
-  import { Submit }                                                         from '/components/index.js'
-  import { Content, Main, Title }                                           from '/sections/admin/index.js'
-  import { graphql, notify, toFormattedDecimals, toFixed, SHARE, RHC, RHS } from '/lib/index.js'
-  import { onMount }                                                        from 'svelte'
+  import { Submit }                                                            from '/components/index.js'
+  import { Content, Main, Title }                                              from '/sections/admin/index.js'
+  import { graphql, getNotify, toFormattedDecimals, toFixed, SHARE, RHC, RHS } from '/lib/index.js'
+  import { onMount }                                                           from 'svelte'
+  import { getNotificationsContext }                                           from 'svelte-notifications'
+
 
   let coop      = RHC.new({ metamask: true })
   let loading   = false
@@ -11,6 +13,9 @@
   let value     = '...'
   let timestamp = '...'
   let update
+
+  const { addNotification, clearNotifications } = getNotificationsContext()
+  const notify = getNotify(addNotification, clearNotifications)
 
   graphql
     .subscribe({

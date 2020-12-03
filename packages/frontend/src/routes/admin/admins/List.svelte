@@ -1,10 +1,11 @@
 <script>
-  import { Button, Loading }      from '/components/index.js'
-  import { Content, Main, Title } from '/sections/admin/index.js'
-  import { graphql, ADMINS }      from '/lib/graphql'
-  import { notify, RHC }               from '/lib/index'
-  import { observe }              from 'svelte-observable'
-  import { Link, navigateTo }     from 'yrv'
+  import { Button, Loading }         from '/components/index.js'
+  import { Content, Main, Title }    from '/sections/admin/index.js'
+  import { graphql, ADMINS }         from '/lib/graphql'
+  import { getNotify, RHC }          from '/lib/index'
+  import { getNotificationsContext } from 'svelte-notifications'
+  import { observe }                 from 'svelte-observable'
+  import { Link, navigateTo }        from 'yrv'
 
   export let account = ''
 
@@ -13,6 +14,9 @@
   let _admins = []
   let admins  = []
   let search  = ''
+
+  const { addNotification, clearNotifications } = getNotificationsContext()
+  const notify = getNotify(addNotification, clearNotifications)
 
   $: {
     admins = _admins.filter(admin =>  admin.address.startsWith(search))
